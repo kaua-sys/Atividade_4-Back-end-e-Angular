@@ -12,4 +12,8 @@ export class FuncionarioService {
   listar() {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  excluir(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }
