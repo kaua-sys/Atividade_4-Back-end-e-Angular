@@ -1,1 +1,7 @@
-<p>funcionarios works!</p>
+<h1>Lista de funcionários</h1>
+
+<ul>
+  <li *ngFor="let funcionario of funcionarios">
+    {{ funcionario.pessoa?.nome || funcionario.nome }}
+  </li>
+</ul>
