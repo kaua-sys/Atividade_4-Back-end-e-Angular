@@ -17,24 +17,22 @@ export class FuncionariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.funcionarioService.listar().subscribe({
-      next: (dados) => {
-        this.funcionarios = dados;
-        console.log(dados);
-      },
-      error: (erro) => {
-        console.error('Erro ao buscar funcionários:', erro);
-      }
+      next: (dados) => this.funcionarios = dados,
+      error: (erro) => console.error(erro)
     });
   }
 
+  excluir(idPessoa: number): void {
+    if (!confirm('Deseja excluir este funcionário?')) return;
 
-excluir(idPessoa: number): void {
-  const confirmar = confirm('Deseja realmente excluir este funcionário?');
-
-  if (!confirmar) {
-    return;
+    this.funcionarioService.excluir(idPessoa).subscribe({
+      next: () => {
+        this.funcionarios = this.funcionarios.filter(
+          f => f.idPessoa !== idPessoa
+        );
+        alert('Funcionário excluído!');
+      },
+      error: () => alert('Erro ao excluir funcionário.')
+    });
   }
-
-}
-
 }
