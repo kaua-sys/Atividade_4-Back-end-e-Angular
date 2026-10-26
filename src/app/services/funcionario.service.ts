@@ -16,4 +16,8 @@ export class FuncionarioService {
   excluir(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  cadastrar(funcionario: any) {
+    return this.http.post(this.apiUrl, funcionario);
+  }
 }
