@@ -26,4 +26,16 @@ export class FuncionariosComponent implements OnInit {
       }
     });
   }
+
+
+excluir(idPessoa: number): void {
+  const confirmar = confirm('Deseja realmente excluir este funcionário?');
+
+  if (!confirmar) {
+    return;
+  }
+
+  // Vamos implementar a chamada à API no próximo passo.
+}
+
 }
