@@ -35,7 +35,6 @@ excluir(idPessoa: number): void {
     return;
   }
 
-  // Vamos implementar a chamada à API no próximo passo.
 }
 
 }
