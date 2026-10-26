@@ -1,7 +1,28 @@
+
 <h1>Lista de funcionários</h1>
 
-<ul>
-  <li *ngFor="let funcionario of funcionarios">
-    {{ funcionario.pessoa?.nome || funcionario.nome }}
-  </li>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Cargo</th>
+      <th>Data de admissão</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let funcionario of funcionarios">
+      <td>
+        {{ funcionario.pessoa?.nome || funcionario.nome }}
+      </td>
+
+      <td>
+        {{ funcionario.cargo || 'Não informado' }}
+      </td>
+
+      <td>
+        {{ funcionario.dataAdmissao || 'Não informada' }}
+      </td>
+    </tr>
+  </tbody>
+</table>
