@@ -2,7 +2,7 @@
 
 <form>
   <label>Nome:</label>
-  <input type="text" name="nome" required>
+  <input type="text" name="nome" required [(ngModel)] = "nome" >
 
   <label>CPF:</label>
   <input type="text" name="cpf" required>
@@ -17,6 +17,8 @@
   <input type="date" name="dataAdmissao" required>
 
   <button type="submit">Cadastrar</button>
+
+  
 </form>
 
 <h1>Lista de funcionários</h1>
