@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FuncionarioService } from '../../services/funcionario.service';
 import { FormsModule } from '@angular/forms';
+import { NgForm } from '@angular/forms';
+import { FuncionarioService } from '../../services/funcionario.service';
 
 @Component({
   selector: 'app-funcionarios',
@@ -13,55 +14,69 @@ import { FormsModule } from '@angular/forms';
 export class FuncionariosComponent implements OnInit {
 
   funcionarios: any[] = [];
+  novoFuncionario = this.vazio();
 
-  novoFuncionario: any = {
-    nome: '',
-    cpf: '',
-    email: '',
-    cargo: '',
-    dataAdmissao: ''
-  };
+  constructor(private service: FuncionarioService) {}
 
-  constructor(private funcionarioService: FuncionarioService) {}
 
-  ngOnInit(): void {
-    this.funcionarioService.listar().subscribe({
-      next: (dados) => this.funcionarios = dados,
-      error: (erro) => console.error(erro)
-    });
+  editandoId: number | null = null;
+
+  ngOnInit() {
+    this.carregar();
   }
 
-  cadastrar(): void {
-    this.funcionarioService.cadastrar(this.novoFuncionario).subscribe({
+  vazio() {
+    return {
+      cargo: '',
+      dataAdmissao: '',
+      pessoa: {
+        nome: '',
+         cpf: '', 
+         email: '',
+        telefone: '',
+        sexo: '',
+        dataNascimento: '',
+        enderecos: []
+      }
+    };
+  }
+
+  carregar() {
+    this.service.listar().subscribe(dados => this.funcionarios = dados);
+  }
+
+  salvar() {
+    const requisicao = this.editandoId
+      ? this.service.atualizar(this.editandoId, this.novoFuncionario)
+      : this.service.cadastrar(this.novoFuncionario);
+  
+    requisicao.subscribe({
       next: () => {
-        alert('Funcionário cadastrado!');
-        this.novoFuncionario = {
-          nome: '',
-          cpf: '',
-          email: '',
-          cargo: '',
-          dataAdmissao: ''
-        };
-        this.ngOnInit();
+        alert(this.editandoId ? 'Funcionário atualizado!' : 'Funcionário cadastrado!');
+        this.novoFuncionario = this.vazio();
+        this.editandoId = null;
+        this.carregar();
       },
       error: (erro) => {
-        console.error(erro);
-        alert('Erro ao cadastrar funcionário.');
+        alert(erro.error || 'Erro ao salvar funcionário.');
       }
     });
   }
 
-  excluir(idPessoa: number): void {
-    if (!confirm('Deseja excluir este funcionário?')) return;
+  editar(f: any) {
+    this.editandoId = f.idPessoa;
+    this.novoFuncionario = {
+      cargo: f.cargo,
+      dataAdmissao: (f.dataAdmissao ?? '').substring(0, 10),
+      pessoa: {
+        ...f.pessoa,
+        dataNascimento: (f.pessoa.dataNascimento ?? '').substring(0, 10)
+      }
+    };
+  }
 
-    this.funcionarioService.excluir(idPessoa).subscribe({
-      next: () => {
-        this.funcionarios = this.funcionarios.filter(
-          f => f.idPessoa !== idPessoa
-        );
-        alert('Funcionário excluído!');
-      },
-      error: () => alert('Erro ao excluir funcionário.')
-    });
+  excluir(idPessoa: number) {
+    if (!confirm('Deseja excluir este funcionário?')) return;
+    this.service.excluir(idPessoa).subscribe(() => this.carregar());
   }
 }
