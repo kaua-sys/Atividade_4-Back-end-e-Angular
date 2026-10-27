@@ -31,6 +31,26 @@ export class FuncionariosComponent implements OnInit {
     });
   }
 
+  cadastrar(): void {
+    this.funcionarioService.cadastrar(this.novoFuncionario).subscribe({
+      next: () => {
+        alert('Funcionário cadastrado!');
+        this.novoFuncionario = {
+          nome: '',
+          cpf: '',
+          email: '',
+          cargo: '',
+          dataAdmissao: ''
+        };
+        this.ngOnInit();
+      },
+      error: (erro) => {
+        console.error(erro);
+        alert('Erro ao cadastrar funcionário.');
+      }
+    });
+  }
+
   excluir(idPessoa: number): void {
     if (!confirm('Deseja excluir este funcionário?')) return;
 
