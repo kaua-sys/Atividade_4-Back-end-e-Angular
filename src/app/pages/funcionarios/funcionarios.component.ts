@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FuncionarioService } from '../../services/funcionario.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-funcionarios',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './funcionarios.component.html',
   styleUrl: './funcionarios.component.css'
 })
