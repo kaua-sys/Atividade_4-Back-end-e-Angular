@@ -1,23 +1,30 @@
-<h2>Cadastrar funcionário</h2>
 
-<form>
+<h2>{{ editandoId ? 'Editar funcionário' : 'Cadastrar funcionário' }}</h2>
+
+<form (ngSubmit)="salvar()">
+
   <label>Nome:</label>
-  <input type="text" name="nome" required [(ngModel)] = "novoFuncionario.nome" >
+  <input type="text" name="nome" [(ngModel)]="novoFuncionario.pessoa.nome"required>
 
   <label>CPF:</label>
-  <input type="text" name="cpf" required>
+  <input type= "text" name="cpf" [(ngModel)]="novoFuncionario.pessoa.cpf"required>
 
   <label>E-mail:</label>
-  <input type="email" name="email" required>
+  <input type="email" name="email" [(ngModel)]="novoFuncionario.pessoa.email" required>
+
+  <label>Telefone:</label>
+  <input type="text" name="telefone"  [(ngModel)]="novoFuncionario.pessoa.telefone" required>
+
+  <label>Data de nascimento:</label>
+  <input type="date"  name="dataNascimento"  [(ngModel)]="novoFuncionario.pessoa.dataNascimento"  required>
 
   <label>Cargo:</label>
-  <input type="text" name="cargo" required>
+  <input type="text" name="cargo" [(ngModel)]="novoFuncionario.cargo" required>
 
   <label>Data de admissão:</label>
-  <input type="date" name="dataAdmissao" required>
+  <input type="date" name="dataAdmissao" [(ngModel)]="novoFuncionario.dataAdmissao" required>
 
-  <button type="submit">Cadastrar</button>
-
+  <button type="submit">{{ editandoId ? 'Salvar alterações' : 'Cadastrar' }}</button>
   
 </form>
 
@@ -25,12 +32,11 @@
 
 <table>
   <thead>
-    <th>Ações</th>
-
     <tr>
       <th>Nome</th>
       <th>Cargo</th>
       <th>Data de admissão</th>
+      <th>Ações</th>
     </tr>
   </thead>
 
@@ -49,7 +55,7 @@
       </td>
 
       <td>
-        <button type="button">Editar</button>
+        <button type="button" (click)="editar(funcionario)">Editar</button>
        <button type="button"(click)="excluir(funcionario.idPessoa)">Excluir</button>
       </td>
     </tr>
