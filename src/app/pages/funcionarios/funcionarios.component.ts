@@ -68,8 +68,7 @@ export class FuncionariosComponent implements OnInit {
     this.novoFuncionario = {
       cargo: f.cargo,
       dataAdmissao: (f.dataAdmissao ?? '').substring(0, 10),
-      pessoa: {
-        ...f.pessoa,
+      pessoa: { ...f.pessoa,
         dataNascimento: (f.pessoa.dataNascimento ?? '').substring(0, 10)
       }
     };
