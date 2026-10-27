@@ -14,6 +14,14 @@ export class FuncionariosComponent implements OnInit {
 
   funcionarios: any[] = [];
 
+  novoFuncionario: any = {
+    nome: '',
+    cpf: '',
+    email: '',
+    cargo: '',
+    dataAdmissao: ''
+  };
+
   constructor(private funcionarioService: FuncionarioService) {}
 
   ngOnInit(): void {
