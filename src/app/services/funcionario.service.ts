@@ -18,6 +18,10 @@ export class FuncionarioService {
   }
 
   cadastrar(funcionario: any) {
-    return this.http.post(this.apiUrl, funcionario);
+    return this.http.post(this.apiUrl,funcionario,{responseType: 'text' });
+  }
+
+  atualizar(id: number, funcionario: any) {
+    return this.http.put(`${this.apiUrl}/${id}`, funcionario, { responseType: 'text' });
   }
 }
