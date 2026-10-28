@@ -27,11 +27,24 @@ export class ClientesComponent implements OnInit {
 
   
 cadastrar() {
-  this.service.cadastrar({ ...this.cliente, enderecos: [] }).subscribe(() => {
-    alert('Cliente cadastrado!');
-    this.cliente = {};
-    this.carregar();
-  });
+  if (this.cliente.idPessoa) {
+    // Atualizar cliente existente
+    this.service.atualizar(this.cliente.idPessoa, this.cliente).subscribe(() => {
+        alert('Cliente atualizado!');
+        this.cliente = {};
+        this.carregar();
+      });
+  } else {
+    // Cadastrar novo cliente
+    this.service.cadastrar({
+      ...this.cliente,
+      enderecos: []
+    }).subscribe(() => {
+      alert('Cliente cadastrado!');
+      this.cliente = {};
+      this.carregar();
+    });
+  }
 }
 
 
@@ -44,5 +57,8 @@ excluir(id: number) {
   }
 }
 
+editar(cliente: any) {
+  this.cliente = { ...cliente };
+}
 
 }
