@@ -21,18 +21,27 @@ export class CatalogoComponent implements OnInit {
     this.carregarProdutos();
   }
 
+  
   pesquisa = '';
   produtosFiltrados: any[] = [];
+  tipoSelecionado = 'T';
 
-  filtrarProdutos(): void {
-    this.produtosFiltrados = this.produtos.filter(produto =>produto.item1.toLowerCase().includes(this.pesquisa.toLowerCase())
-    );
-  }
+filtrarProdutos(): void {
+  this.produtosFiltrados = this.produtos.filter(produto => {
+
+    const nomeCorresponde = produto.item1.toLowerCase().includes(this.pesquisa.toLowerCase());
+
+    const tipoCorresponde = this.tipoSelecionado === 'T' ||produto.tipoItem === this.tipoSelecionado;
+
+    return nomeCorresponde && tipoCorresponde;
+  });
+}
 
   carregarProdutos(): void {
     this.produtoService.listar().subscribe({
       next: (dados) => {this.produtos = dados.filter(produto =>produto.ativoProdutoServico === 'S' ||produto.ativoProdutoServico === '1')
-        this.filtrarProdutos();
+
+       this.filtrarProdutos();
       },
       error: (erro) => {console.error('Erro ao carregar produtos:', erro);this.mensagemErro = 'Não foi possível carregar o catálogo.';
       }
