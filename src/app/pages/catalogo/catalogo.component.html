@@ -1,11 +1,6 @@
 <h1>Catálogo de produtos e serviços</h1>
 
-<input
-  type="text"
-  placeholder="Pesquisar produto ou serviço..."
-  [(ngModel)]="pesquisa"
-  (ngModelChange)="filtrarProdutos()"
->
+<input type="text"placeholder="Pesquisar produto ou serviço..." [(ngModel)]="pesquisa"(ngModelChange)="filtrarProdutos()">
 
 <p *ngIf="mensagemErro">
   {{ mensagemErro }}
