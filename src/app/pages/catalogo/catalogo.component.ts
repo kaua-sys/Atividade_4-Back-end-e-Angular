@@ -22,14 +22,26 @@ export class CatalogoComponent implements OnInit {
   }
 
   pesquisa = '';
+  produtosFiltrados: any[] = [];
+  
+  filtrarProdutos(): void {
+    this.produtosFiltrados = this.produtos.filter(produto =>
+      produto.item1
+        .toLowerCase()
+        .includes(this.pesquisa.toLowerCase())
+    );
+  }
 
   carregarProdutos(): void {
     this.produtoService.listar().subscribe({
       next: (dados) => {
         this.produtos = dados.filter(
-          produto => produto.ativoProdutoServico === 'S' ||
-                     produto.ativoProdutoServico === '1'
+          produto =>
+            produto.ativoProdutoServico === 'S' ||
+            produto.ativoProdutoServico === '1'
         );
+      
+        this.filtrarProdutos();
       },
       error: (erro) => {
         console.error('Erro ao carregar produtos:', erro);
@@ -37,4 +49,5 @@ export class CatalogoComponent implements OnInit {
       }
     });
   }
+  
 }
