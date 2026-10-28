@@ -27,15 +27,29 @@
 
 <h1>Lista de clientes</h1>
 
+<th>Ações</th>
+
+
+<h1>Lista de clientes</h1>
+
 <table>
   <thead>
-    <tr><th>Nome</th><th>E-mail</th><th>Telefone</th></tr>
+    <tr>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Telefone</th>
+      <th>Ações</th>
+    </tr>
   </thead>
+
   <tbody>
     <tr *ngFor="let c of clientes">
       <td>{{ c.nome }}</td>
       <td>{{ c.email }}</td>
       <td>{{ c.telefone }}</td>
+      <td>
+        <button (click)="excluir(c.idPessoa)">Excluir</button>
+      </td>
     </tr>
   </tbody>
 </table>
