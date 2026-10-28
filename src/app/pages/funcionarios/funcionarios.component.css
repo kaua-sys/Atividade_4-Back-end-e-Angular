@@ -1,3 +1,4 @@
+
 :host {
   display: block;
   max-width: 1000px;
@@ -9,6 +10,7 @@ h1,
 h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: #2c3e50;
 }
 
 form {
@@ -26,6 +28,7 @@ label {
   display: block;
   margin-bottom: 4px;
   font-weight: bold;
+  color: #2c3e50;
 }
 
 input,
@@ -67,6 +70,7 @@ td button {
 table {
   width: 100%;
   border-collapse: collapse;
+  background-color: #fff;
 }
 
 th,
@@ -78,8 +82,10 @@ td {
 
 th {
   background-color: #eeeeee;
+  color: #2c3e50;
 }
 
 tbody tr:hover {
   background-color: #f5f5f5;
 }
+
