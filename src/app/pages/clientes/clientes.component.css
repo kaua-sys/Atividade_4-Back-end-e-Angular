@@ -86,3 +86,58 @@ th {
 tbody tr:hover {
   background-color: #f5f5f5;
 }
+
+
+.pagina-clientes {
+  color: #263238;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #667781;
+  margin-bottom: 25px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 24px;
+  margin-bottom: 25px;
+  border: 1px solid #e0e5e9;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px #0000000d;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.botoes {
+  grid-column: span 2;
+  display: flex;
+  gap: 10px;
+}
+
+form .btn-salvar {
+  background-color: #176b87;
+}
+
+form .btn-cancelar {
+  background-color: #e4e9ed;
+  color: #263238;
+}
+
+.btn-editar {
+  background-color: #e4edf8;
+  color: #245b91;
+  margin-right: 6px;
+}
+
+.btn-excluir {
+  background-color: #fde9e7;
+  color: #b42318;
+}
+
+.tabela-container {
+  overflow-x: auto;
+}
