@@ -1,12 +1,12 @@
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProdutoService } from '../../services/produto.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-catalogo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './catalogo.component.html',
   styleUrl: './catalogo.component.css'
 })
@@ -20,6 +20,8 @@ export class CatalogoComponent implements OnInit {
   ngOnInit(): void {
     this.carregarProdutos();
   }
+
+  pesquisa = '';
 
   carregarProdutos(): void {
     this.produtoService.listar().subscribe({
