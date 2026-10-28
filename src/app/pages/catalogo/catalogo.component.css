@@ -1,0 +1,36 @@
+:host {
+    display: block;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+  }
+  
+  .catalogo {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+  
+  .produto {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 3px 8px #0000000d;
+  }
+  
+  .produto h2 {
+    color: #176b87;
+    text-transform: capitalize;
+  }
+  
+  .produto p {
+    line-height: 1.5;
+}
+  
