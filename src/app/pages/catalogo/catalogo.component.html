@@ -1,1 +1,29 @@
-<p>item-service works!</p>
+<h1>Catálogo de produtos e serviços</h1>
+
+<p *ngIf="mensagemErro">
+  {{ mensagemErro }}
+</p>
+
+<div class="catalogo">
+  <div class="produto" *ngFor="let produto of produtos">
+
+    <h2>{{ produto.item1 }}</h2>
+
+    <p>{{ produto.descricaoItem }}</p>
+
+    <p>
+      <strong>Preço:</strong>
+      {{ produto.preco | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+    </p>
+
+    <p>
+      <strong>Tipo:</strong>
+      {{ produto.tipoItem === 'P' ? 'Produto' : 'Serviço' }}
+    </p>
+
+  </div>
+</div>
+
+<p *ngIf="produtos.length === 0 && !mensagemErro">
+  Nenhum produto ou serviço disponível.
+</p>
