@@ -1,0 +1,41 @@
+<h2>Cadastrar cliente</h2>
+
+<form (ngSubmit)="cadastrar()">
+  <label>Nome:</label>
+  <input name="nome" [(ngModel)]="cliente.nome" required>
+
+  <label>CPF:</label>
+  <input type="number" name="cpf" [(ngModel)]="cliente.cpf" required>
+
+  <label>Data de nascimento:</label>
+  <input type="date" name="dataNascimento" [(ngModel)]="cliente.dataNascimento" required>
+
+  <label>Sexo:</label>
+  <select name="sexo" [(ngModel)]="cliente.sexo" required>
+    <option value="M">Masculino</option>
+    <option value="F">Feminino</option>
+  </select>
+
+  <label>E-mail:</label>
+  <input type="email" name="email" [(ngModel)]="cliente.email" required>
+
+  <label>Telefone:</label>
+  <input type="number" name="telefone" [(ngModel)]="cliente.telefone" required>
+
+  <button type="submit">Cadastrar</button>
+</form>
+
+<h1>Lista de clientes</h1>
+
+<table>
+  <thead>
+    <tr><th>Nome</th><th>E-mail</th><th>Telefone</th></tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of clientes">
+      <td>{{ c.nome }}</td>
+      <td>{{ c.email }}</td>
+      <td>{{ c.telefone }}</td>
+    </tr>
+  </tbody>
+</table>
