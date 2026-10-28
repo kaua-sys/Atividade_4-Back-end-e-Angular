@@ -1,4 +1,4 @@
-<h2>Cadastrar cliente</h2>
+<h2>{{ cliente.idPessoa ? 'Editar cliente' : 'Cadastrar cliente' }}</h2>
 
 <form (ngSubmit)="cadastrar()">
   <label>Nome:</label>
@@ -22,13 +22,14 @@
   <label>Telefone:</label>
   <input type="text" name="telefone" [(ngModel)]="cliente.telefone" required>
 
-  <button type="submit">Cadastrar</button>
+  <button type="submit">
+  {{ cliente.idPessoa ? 'Salvar alterações' : 'Cadastrar' }}
+  </button>
+
+ <button type="button" *ngIf="cliente.idPessoa" (click)="cliente = {}">
+  Cancelar
+</button>
 </form>
-
-<h1>Lista de clientes</h1>
-
-<th>Ações</th>
-
 
 <h1>Lista de clientes</h1>
 
@@ -48,6 +49,7 @@
       <td>{{ c.email }}</td>
       <td>{{ c.telefone }}</td>
       <td>
+        <button (click)="editar(c)">Editar</button>
         <button (click)="excluir(c.idPessoa)">Excluir</button>
       </td>
     </tr>
