@@ -1,20 +1,18 @@
 <h1>Catálogo de produtos e serviços</h1>
 
-<div class="pesquisa">
-    <input
-      type="text"
-      placeholder="Pesquisar produto ou serviço..."
-      [(ngModel)]="pesquisa"
-    >
-  </div>
+<input
+  type="text"
+  placeholder="Pesquisar produto ou serviço..."
+  [(ngModel)]="pesquisa"
+  (ngModelChange)="filtrarProdutos()"
+>
 
 <p *ngIf="mensagemErro">
   {{ mensagemErro }}
 </p>
 
 <div class="catalogo">
-  <div class="produto" *ngFor="let produto of produtos">
-
+    <div class="produto" *ngFor="let produto of produtosFiltrados">
     <h2>{{ produto.item1 }}</h2>
 
     <p>{{ produto.descricaoItem }}</p>
@@ -32,6 +30,6 @@
   </div>
 </div>
 
-<p *ngIf="produtos.length === 0 && !mensagemErro">
-  Nenhum produto ou serviço disponível.
+<p *ngIf="produtosFiltrados.length === 0 && !mensagemErro">
+    Nenhum produto ou serviço encontrado.
 </p>
