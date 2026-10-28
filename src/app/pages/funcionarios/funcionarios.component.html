@@ -2,30 +2,87 @@
 <h2>{{ editandoId ? 'Editar funcionário' : 'Cadastrar funcionário' }}</h2>
 
 <form (ngSubmit)="salvar()">
+  <div>
+    <label>Nome:</label>
+    <input
+      type="text"
+      name="nome"
+      [(ngModel)]="novoFuncionario.pessoa.nome"
+      required
+    >
+  </div>
 
-  <label>Nome:</label>
-  <input type="text" name="nome" [(ngModel)]="novoFuncionario.pessoa.nome"required>
+  <div>
+    <label>CPF:</label>
+    <input
+      type="text"
+      name="cpf"
+      [(ngModel)]="novoFuncionario.pessoa.cpf"
+      required
+    >
+  </div>
 
-  <label>CPF:</label>
-  <input type= "text" name="cpf" [(ngModel)]="novoFuncionario.pessoa.cpf"required>
+  <div>
+    <label>E-mail:</label>
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="novoFuncionario.pessoa.email"
+      required
+    >
+  </div>
 
-  <label>E-mail:</label>
-  <input type="email" name="email" [(ngModel)]="novoFuncionario.pessoa.email" required>
+  <div>
+    <label>Telefone:</label>
+    <input
+      type="text"
+      name="telefone"
+      [(ngModel)]="novoFuncionario.pessoa.telefone"
+      required
+    >
+  </div>
 
-  <label>Telefone:</label>
-  <input type="text" name="telefone"  [(ngModel)]="novoFuncionario.pessoa.telefone" required>
+  <div>
+    <label>Data de nascimento:</label>
+    <input
+      type="date"
+      name="dataNascimento"
+      [(ngModel)]="novoFuncionario.pessoa.dataNascimento"
+      required
+    >
+  </div>
 
-  <label>Data de nascimento:</label>
-  <input type="date"  name="dataNascimento"  [(ngModel)]="novoFuncionario.pessoa.dataNascimento"  required>
+  <div>
+    <label>Cargo:</label>
+    <input
+      type="text"
+      name="cargo"
+      [(ngModel)]="novoFuncionario.cargo"
+      required
+    >
+  </div>
 
-  <label>Cargo:</label>
-  <input type="text" name="cargo" [(ngModel)]="novoFuncionario.cargo" required>
+  <div>
+    <label>Data de admissão:</label>
+    <input
+      type="date"
+      name="dataAdmissao"
+      [(ngModel)]="novoFuncionario.dataAdmissao"
+      required
+    >
+  </div>
 
-  <label>Data de admissão:</label>
-  <input type="date" name="dataAdmissao" [(ngModel)]="novoFuncionario.dataAdmissao" required>
+  <button type="submit">
+    {{ editandoId ? 'Salvar alterações' : 'Cadastrar' }}
+  </button>
 
-  <button type="submit">{{ editandoId ? 'Salvar alterações' : 'Cadastrar' }}</button>
-  
+  <button
+    type="button"
+    *ngIf="editandoId"
+    (click)="editandoId = null"
+  >
+    Cancelar edição
+  </button>
 </form>
 
 <h1>Lista de funcionários</h1>
@@ -42,21 +99,20 @@
 
   <tbody>
     <tr *ngFor="let funcionario of funcionarios">
+      <td>{{ funcionario.pessoa?.nome || funcionario.nome }}</td>
+      <td>{{ funcionario.cargo || 'Não informado' }}</td>
+      <td>{{ funcionario.dataAdmissao || 'Não informada' }}</td>
       <td>
-        {{ funcionario.pessoa?.nome || funcionario.nome }}
-      </td>
+        <button type="button" (click)="editar(funcionario)">
+          Editar
+        </button>
 
-      <td>
-        {{ funcionario.cargo || 'Não informado' }}
-      </td>
-
-      <td>
-        {{ funcionario.dataAdmissao || 'Não informada' }}
-      </td>
-
-      <td>
-        <button type="button" (click)="editar(funcionario)">Editar</button>
-       <button type="button"(click)="excluir(funcionario.idPessoa)">Excluir</button>
+        <button
+          type="button"
+          (click)="excluir(funcionario.idPessoa)"
+        >
+          Excluir
+        </button>
       </td>
     </tr>
   </tbody>
