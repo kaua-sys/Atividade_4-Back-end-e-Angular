@@ -25,14 +25,24 @@ export class ClientesComponent implements OnInit {
     this.service.listar().subscribe(dados => this.clientes = dados);
   }
 
-  cadastrar() {
-    this.service.cadastrar({ ...this.cliente, enderecos: [] }).subscribe({
-      next: () => {
-        alert('Cliente cadastrado!');
-        this.cliente = {};
-        this.carregar();
-      },
-      error: erro => alert(erro.error || 'Erro ao cadastrar cliente.')
+  
+cadastrar() {
+  this.service.cadastrar({ ...this.cliente, enderecos: [] }).subscribe(() => {
+    alert('Cliente cadastrado!');
+    this.cliente = {};
+    this.carregar();
+  });
+}
+
+
+excluir(id: number) {
+  if (confirm('Deseja excluir este cliente?')) {
+    this.service.excluir(id).subscribe(() => {
+      alert('Cliente excluído!');
+      this.carregar();
     });
   }
+}
+
+
 }
