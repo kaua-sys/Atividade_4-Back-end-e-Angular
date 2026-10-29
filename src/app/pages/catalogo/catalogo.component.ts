@@ -58,7 +58,12 @@ export class CatalogoComponent implements OnInit {
     if (itemExistente) {
       itemExistente.quantidade++;
     } else {
-      this.carrinho.push({iditem: produto.iditem,nome: produto.item1, preco: produto.preco, quantidade: 1});
+      this.carrinho.push({
+        iditem: produto.iditem,
+        nome: produto.item?.item1,
+        preco: produto.precoVenda,
+        quantidade: 1
+      });
     }
   
     sessionStorage.setItem('carrinho',JSON.stringify(this.carrinho));
