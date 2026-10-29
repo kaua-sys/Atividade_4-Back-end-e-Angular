@@ -45,7 +45,7 @@ filtrarProdutos(): void {
       next: (dados) => {this.produtos = dados.filter(produto =>produto.ativoProdutoServico === 'S' ||produto.ativoProdutoServico === '1')
 
        this.filtrarProdutos();
-      },
+       },
       error: (erro) => {console.error('Erro ao carregar produtos:', erro);this.mensagemErro = 'Não foi possível carregar o catálogo.';
       }
     });
