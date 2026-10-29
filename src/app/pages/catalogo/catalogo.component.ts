@@ -14,10 +14,13 @@ export class CatalogoComponent implements OnInit {
 
   produtos: any[] = [];
   mensagemErro = '';
+  carrinho: any[] = [];
 
   constructor(private produtoService: ProdutoService) {}
 
   ngOnInit(): void {
+    this.carrinho = JSON.parse( sessionStorage.getItem('carrinho') || '[]');
+  
     this.carregarProdutos();
   }
 
@@ -46,6 +49,20 @@ filtrarProdutos(): void {
       error: (erro) => {console.error('Erro ao carregar produtos:', erro);this.mensagemErro = 'Não foi possível carregar o catálogo.';
       }
     });
+  }
+
+  adicionarAoCarrinho(produto: any): void {
+    const itemExistente = this.carrinho.find(item => item.iditem === produto.iditem);
+  
+    if (itemExistente) {
+      itemExistente.quantidade++;
+    } else {
+      this.carrinho.push({iditem: produto.iditem,nome: produto.item1, preco: produto.preco, quantidade: 1});
+    }
+  
+    sessionStorage.setItem('carrinho',JSON.stringify(this.carrinho));
+  
+    alert('Item adicionado ao carrinho!');
   }
   
 }
