@@ -1,1 +1,36 @@
-<p>carrinho works!</p>
+<h1>Carrinho</h1>
+
+<p *ngIf="carrinho.length === 0">
+  Seu carrinho está vazio. <a routerLink="/catalogo">Voltar ao catálogo</a>
+</p>
+
+<table *ngIf="carrinho.length > 0">
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Valor unitário</th>
+      <th>Quantidade</th>
+      <th>Subtotal</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of carrinho">
+      <td>{{ item.nome }}</td>
+      <td>{{ item.preco | currency:'BRL' }}</td>
+      <td>
+        <button type="button" (click)="diminuir(item)">-</button>
+        {{ item.quantidade }}
+        <button type="button" (click)="aumentar(item)">+</button>
+      </td>
+      <td>{{ item.preco * item.quantidade | currency:'BRL' }}</td>
+      <td><button type="button" (click)="remover(item)">Remover</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="carrinho.length > 0">
+  <h2>Total: {{ calcularTotal() | currency:'BRL' }}</h2>
+  <button type="button" (click)="limpar()">Limpar carrinho</button>
+  <button type="button" disabled>Confirmar pedido</button>
+</div>
