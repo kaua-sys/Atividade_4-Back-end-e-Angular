@@ -33,4 +33,33 @@
   .produto p {
     line-height: 1.5;
 }
+
+.pesquisa,
+.filtro-tipo {
+  margin-bottom: 20px;
+}
+
+.pesquisa input,
+.filtro-tipo select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.pesquisa input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.filtro-tipo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filtro-tipo select {
+  background-color: white;
+  cursor: pointer;
+}
   
