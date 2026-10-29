@@ -23,9 +23,13 @@
       {{ produto.tipoItem === 'P' ? 'Produto' : 'Serviço' }}
     </p>
 
+    <button (click)="adicionarAoCarrinho(produto)">
+      Adicionar ao carrinho
+    </button>
   </div>
 </div>
 
 <p *ngIf="produtosFiltrados.length === 0 && !mensagemErro">
     Nenhum produto ou serviço encontrado.
 </p>
+
