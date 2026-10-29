@@ -32,5 +32,18 @@
 <div *ngIf="carrinho.length > 0">
   <h2>Total: {{ calcularTotal() | currency:'BRL' }}</h2>
   <button type="button" (click)="limpar()">Limpar carrinho</button>
-  <button type="button" disabled>Confirmar pedido</button>
+  <button type="button" (click)="confirmando = true">Confirmar pedido</button>
 </div>
+
+<form *ngIf="confirmando && carrinho.length > 0" (ngSubmit)="confirmar()">
+  <h3>Identifique-se para confirmar o pedido</h3>
+
+  <label>CPF:</label>
+  <input name="cpf" [(ngModel)]="cpf" required>
+
+  <label>E-mail:</label>
+  <input type="email" name="email" [(ngModel)]="email" required>
+
+  <button type="submit" [disabled]="enviando">Finalizar pedido</button>
+  <button type="button" (click)="confirmando = false">Cancelar</button>
+</form>
