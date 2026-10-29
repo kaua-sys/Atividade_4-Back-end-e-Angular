@@ -3,6 +3,7 @@ import { FuncionariosComponent } from './pages/funcionarios/funcionarios.compone
 import { ClientesComponent } from './pages/clientes/clientes.component';
 import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 import { CarrinhoComponent } from './pages/carrinho/carrinho.component';
+import { MeusPedidosComponent } from './pages/meus-pedidos/meus-pedidos.component';
 
 export const routes: Routes = [
   {
@@ -19,5 +20,8 @@ export const routes: Routes = [
   },
   {
    path: 'carrinho',component: CarrinhoComponent
+  },
+  {
+    path: 'pedidos',component: MeusPedidosComponent
   }
 ];
