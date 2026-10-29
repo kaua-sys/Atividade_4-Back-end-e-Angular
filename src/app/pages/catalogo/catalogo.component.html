@@ -3,29 +3,19 @@
 <div class="pesquisa">
     <input type="text"placeholder="Pesquisar produto ou serviço..." [(ngModel)]="pesquisa"(ngModelChange)="filtrarProdutos()"></div>
 
-<p *ngIf="mensagemErro">
-  {{ mensagemErro }}
-</p>
+<p *ngIf="mensagemErro"> {{ mensagemErro }}</p>
 
 <div class="catalogo">
     <div class="produto" *ngFor="let produto of produtosFiltrados">
-    <h2>{{ produto.item1 }}</h2>
+      <h2>{{ produto.item?.item1 }}</h2>
 
-    <p>{{ produto.descricaoItem }}</p>
+      <p>{{ produto.item?.descricaoItem }}</p>
+      
+      <p><strong>Preço:</strong>{{ produto.precoVenda | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</p>
+      
+      <p> <strong>Tipo:</strong> {{ produto.item?.tipoItem === 'P' ? 'Produto' : 'Serviço' }}</p>
 
-    <p>
-      <strong>Preço:</strong>
-      {{ produto.preco | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-    </p>
-
-    <p>
-      <strong>Tipo:</strong>
-      {{ produto.tipoItem === 'P' ? 'Produto' : 'Serviço' }}
-    </p>
-
-    <button (click)="adicionarAoCarrinho(produto)">
-      Adicionar ao carrinho
-    </button>
+    <button (click)="adicionarAoCarrinho(produto)">Adicionar ao carrinho</button>
   </div>
 </div>
 

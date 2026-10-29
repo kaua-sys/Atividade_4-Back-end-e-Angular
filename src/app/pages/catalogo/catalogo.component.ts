@@ -29,23 +29,24 @@ export class CatalogoComponent implements OnInit {
   produtosFiltrados: any[] = [];
   tipoSelecionado = 'T';
 
-filtrarProdutos(): void {
-  this.produtosFiltrados = this.produtos.filter(produto => {
-
-    const nomeCorresponde = produto.item1.toLowerCase().includes(this.pesquisa.toLowerCase());
-
-    const tipoCorresponde = this.tipoSelecionado === 'T' ||produto.tipoItem === this.tipoSelecionado;
-
-    return nomeCorresponde && tipoCorresponde;
-  });
-}
+  filtrarProdutos(): void {
+    this.produtosFiltrados = this.produtos.filter(produto => { const nome = produto.item?.item1 || '';
+  
+    const nomeCorresponde = nome .toLowerCase() .includes(this.pesquisa.toLowerCase());
+  
+      const tipoCorresponde = this.tipoSelecionado === 'T' || produto.item?.tipoItem === this.tipoSelecionado;
+  
+      return nomeCorresponde && tipoCorresponde;
+    });
+  }
 
   carregarProdutos(): void {
     this.produtoService.listar().subscribe({
-      next: (dados) => {this.produtos = dados.filter(produto =>produto.ativoProdutoServico === 'S' ||produto.ativoProdutoServico === '1')
-
-       this.filtrarProdutos();
-       },
+      next: (dados) => {
+        this.produtos = dados.filter(produto => produto.item?.ativoProdutoServico === 'S' || produto.item?.ativoProdutoServico === '1');
+      
+        this.filtrarProdutos();
+      },
       error: (erro) => {console.error('Erro ao carregar produtos:', erro);this.mensagemErro = 'Não foi possível carregar o catálogo.';
       }
     });
