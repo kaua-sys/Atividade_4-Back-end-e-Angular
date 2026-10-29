@@ -63,3 +63,26 @@
   cursor: pointer;
 }
   
+
+
+.produto button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #176b87;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.produto button:hover {
+  background-color: #12536a;
+}
+
+.produto button:active {
+  transform: scale(0.98);
+}
