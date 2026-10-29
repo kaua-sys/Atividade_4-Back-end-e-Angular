@@ -60,3 +60,31 @@
   div button {
     margin-right: 8px;
   }
+
+  form {
+    max-width: 400px;
+    margin: 20px 0 0 auto;
+    padding: 20px;
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  label {
+    display: block;
+    margin: 8px 0 4px;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  form button {
+    margin-top: 12px;
+    margin-right: 8px;
+  }
