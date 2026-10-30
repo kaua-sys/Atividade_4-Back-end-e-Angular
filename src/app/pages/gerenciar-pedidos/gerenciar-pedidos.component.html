@@ -1,1 +1,54 @@
-<p>gerenciar-pedidos works!</p>
+<div class="pagina-pedidos">
+
+  <h1>Gerenciar Pedidos</h1>
+
+  <p *ngIf="pedidos.length === 0">
+    Nenhum pedido cadastrado.
+  </p>
+
+  <table *ngIf="pedidos.length > 0">
+
+    <thead>
+      <tr>
+        <th>Pedido</th>
+        <th>Cliente</th>
+        <th>Data</th>
+        <th>Total</th>
+        <th>Situação</th>
+        <th>Alterar situação</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let p of pedidos">
+
+        <td>{{ p.idAtendimento }}</td>
+
+        <td>{{ p.nomePessoa }}</td>
+
+        <td>{{ p.dataAtendimento | date:'dd/MM/yyyy' }}</td>
+
+        <td>{{ calcularTotal(p) | currency:'BRL' }}</td>
+
+        <td>{{ nomeStatus(p.statusAtendimento) }}</td>
+
+        <td>
+          <select
+            #status
+            [value]="p.statusAtendimento"
+            (change)="alterarStatus(p.idAtendimento, status.value)">
+
+            <option value="A">Aberto</option>
+            <option value="P">Em processamento</option>
+            <option value="C">Concluído</option>
+            <option value="X">Cancelado</option>
+
+          </select>
+        </td>
+
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>
