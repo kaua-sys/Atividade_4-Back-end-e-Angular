@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,33 +14,40 @@ import { PedidoService } from '../../services/pedido.service';
 export class MeusPedidosComponent {
   cpf = '';
   email = '';
-  cliente: { idPessoa: number; nome: string } | null = null;
+  cliente: any = null;
   pedidos: any[] = [];
   pedidoAberto: number | null = null;
 
   constructor(private pedidoService: PedidoService) {}
 
   entrar(): void {
-    const cpf = Number(String(this.cpf).replace(/\D/g, ''));
+    const cpf = Number(this.cpf.replace(/\D/g, ''));
 
     this.pedidoService.identificar(cpf, this.email).subscribe({
       next: cliente => {
         this.cliente = cliente;
         this.carregar();
       },
-      error: erro => alert(this.mensagemDe(erro, 'Erro ao identificar o cliente.'))
+      error: () => alert('Erro ao identificar o cliente.')
     });
   }
 
   carregar(): void {
-    this.pedidoService.listarDoCliente(this.cliente!.idPessoa).subscribe({
+    this.pedidoService.listarDoCliente(this.cliente.idPessoa).subscribe({
       next: dados => this.pedidos = dados,
-      error: erro => alert(this.mensagemDe(erro, 'Erro ao carregar os pedidos.'))
+      error: () => alert('Erro ao carregar os pedidos.')
     });
   }
 
-  alternar(idPedido: number): void {
-    this.pedidoAberto = this.pedidoAberto === idPedido ? null : idPedido;
+  calcularTotal(pedido: any): number {
+    return pedido.itens.reduce(
+      (total: number, item: any) =>
+        total + item.valorUnitario * item.quantidade, 0
+    );
+  }
+
+  alternar(id: number): void {
+    this.pedidoAberto = this.pedidoAberto === id ? null : id;
   }
 
   sair(): void {
@@ -48,9 +56,5 @@ export class MeusPedidosComponent {
     this.pedidoAberto = null;
     this.cpf = '';
     this.email = '';
-  }
-
-  private mensagemDe(erro: any, padrao: string): string {
-    return typeof erro.error === 'string' && erro.error ? erro.error : padrao;
   }
 }

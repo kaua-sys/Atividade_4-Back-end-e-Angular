@@ -14,7 +14,9 @@
   <h2>Olá, {{ cliente.nome }}</h2>
   <button type="button" (click)="sair()">Sair</button>
 
-  <p *ngIf="pedidos.length === 0">Você ainda não fez pedidos.</p>
+  <p *ngIf="pedidos.length === 0">
+    Você ainda não fez pedidos.
+  </p>
 
   <table *ngIf="pedidos.length > 0">
     <thead>
@@ -26,43 +28,37 @@
         <th></th>
       </tr>
     </thead>
-    <tbody>
-      <ng-container *ngFor="let p of pedidos">
-        <tr>
-          <td>{{ p.idPedido }}</td>
-          <td>{{ p.data | date:'dd/MM/yyyy' }}</td>
-          <td>{{ p.total | currency:'BRL' }}</td>
-          <td>{{ p.statusDescricao }}</td>
-          <td>
-            <button type="button" (click)="alternar(p.idPedido)">
-              {{ pedidoAberto === p.idPedido ? 'Ocultar itens' : 'Ver itens' }}
-            </button>
-          </td>
-        </tr>
 
-        <tr *ngIf="pedidoAberto === p.idPedido">
-          <td colspan="5">
-            <table>
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Quantidade</th>
-                  <th>Valor unitário</th>
-                  <th>Subtotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let i of p.itens">
-                  <td>{{ i.item }}</td>
-                  <td>{{ i.quantidade }}</td>
-                  <td>{{ i.valorUnitario | currency:'BRL' }}</td>
-                  <td>{{ i.subtotal | currency:'BRL' }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      </ng-container>
-    </tbody>
+    <tbody>
+  <tr *ngFor="let p of pedidos">
+    <td>{{ p.idAtendimento }}</td>
+    <td>{{ p.dataAtendimento | date:'dd/MM/yyyy' }}</td>
+    <td>{{ calcularTotal(p) | currency:'BRL' }}</td>
+    <td>{{ p.statusAtendimento }}</td>
+    <td>
+      <button type="button" (click)="alternar(p.idAtendimento)">
+        {{ pedidoAberto === p.idAtendimento ? 'Ocultar itens' : 'Ver itens' }}
+      </button>
+    </td>
+  </tr>
+</tbody>
+
+       <div *ngIf="pedidoAberto">
+  <h3>Itens do pedido</h3>
+
+  <table>
+    <tr>
+      <th>Item</th>
+      <th>Quantidade</th>
+      <th>Valor unitário</th>
+      <th>Subtotal</th>
+    </tr>
+
+    <tr *ngFor="let i of pedidos.find(p => p.idAtendimento === pedidoAberto)?.itens">
+      <td>{{ i.item }}</td>
+      <td>{{ i.quantidade }}</td>
+      <td>{{ i.valorUnitario | currency:'BRL' }}</td>
+      <td>{{ i.valorUnitario * i.quantidade | currency:'BRL' }}</td>
+    </tr>
   </table>
 </div>
