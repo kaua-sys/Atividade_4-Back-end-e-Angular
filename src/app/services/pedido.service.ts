@@ -7,18 +7,17 @@ export class PedidoService {
 
   constructor(private http: HttpClient) {}
 
+
   identificar(cpf: number, email: string) {
-    return this.http.post<{ idPessoa: number; nome: string }>(
-      `${this.apiUrl}/Pessoa/identificar`,
-      { cpf, email }
-    );
+    return this.http.post<{ idPessoa: number; nome: string }>( `${this.apiUrl}/Pessoa/identificar`,{ cpf, email });
   }
 
-  criar(pedido: any) {
-    return this.http.post<any>(`${this.apiUrl}/Pedido`, pedido);
+  criar(atendimento: any) {
+  return this.http.post<any>(`${this.apiUrl}/Atendimento`,atendimento);
   }
+
 
   listarDoCliente(idCliente: number) {
-    return this.http.get<any[]>(`${this.apiUrl}/Pessoa/${idCliente}/pedidos`);
+    return this .http.get<any[]>(`${this.apiUrl}/Pessoa/${idCliente}/pedidos`);
   }
 }

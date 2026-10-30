@@ -59,42 +59,32 @@ export class CarrinhoComponent implements OnInit {
     return this.carrinho.reduce((t, i) => t + i.preco * i.quantidade, 0);
   }
 
-  confirmar(): void {
-    const cpf = Number(String(this.cpf).replace(/\D/g, ''));
-    this.enviando = true;
-
-    this.pedidoService.identificar(cpf, this.email).subscribe({
-      next: cliente => {
-
-        const pedido = {
-          idCliente: cliente.idPessoa,
-          itens: this.carrinho.map(i => ({
-            idItem: i.iditem,         
-            quantidade: i.quantidade
-          }))
-        };
-
-        this.pedidoService.criar(pedido).subscribe({
-          next: resposta => {
-            alert(`Pedido nº ${resposta.idPedido} registrado com sucesso!`);
-            this.limpar();
-            this.confirmando = false;
-            this.enviando = false;
-            this.cpf = '';
-            this.email = '';
-          },
-          error: erro => {
-            this.enviando = false;
-            alert(this.mensagemDe(erro, 'Erro ao registrar o pedido.'));
-          }
-        });
-      },
-      error: erro => {
-        this.enviando = false;
-        alert(this.mensagemDe(erro, 'Erro ao identificar o cliente.'));
-      }
-    });
+ 
+confirmar(): void {
+  if (this.carrinho.length === 0) {
+    alert('Seu carrinho está vazio.');
+    return;
   }
+
+  const atendimento = {
+    idPessoa: 1,
+    statusAtendimento: 'A',
+    itens: this.carrinho.map(i => ({
+      idItem: i.iditem,
+      quantidade: i.quantidade
+    }))
+  };
+
+  this.pedidoService.criar(atendimento).subscribe({
+    next: resposta => {
+      alert(`Pedido nº ${resposta.id} registrado com sucesso!`);
+      this.limpar();
+    },
+    error: erro => {
+      alert(this.mensagemDe(erro, 'Erro ao registrar o pedido.'));
+    }
+  });
+}
 
   private mensagemDe(erro: any, padrao: string): string {
     return typeof erro.error === 'string' && erro.error ? erro.error : padrao;
