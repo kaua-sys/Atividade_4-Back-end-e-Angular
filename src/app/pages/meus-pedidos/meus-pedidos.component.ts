@@ -57,4 +57,12 @@ export class MeusPedidosComponent {
     this.cpf = '';
     this.email = '';
   }
+
+  itensDoPedido(): any[] {
+  const pedido = this.pedidos.find(
+    p => p.idAtendimento === this.pedidoAberto
+  );
+
+  return pedido ? pedido.itens : [];
+}
 }

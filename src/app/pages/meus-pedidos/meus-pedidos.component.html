@@ -1,3 +1,4 @@
+
 <h1>Meus pedidos</h1>
 
 <form *ngIf="!cliente" (ngSubmit)="entrar()">
@@ -30,35 +31,40 @@
     </thead>
 
     <tbody>
-  <tr *ngFor="let p of pedidos">
-    <td>{{ p.idAtendimento }}</td>
-    <td>{{ p.dataAtendimento | date:'dd/MM/yyyy' }}</td>
-    <td>{{ calcularTotal(p) | currency:'BRL' }}</td>
-    <td>{{ p.statusAtendimento }}</td>
-    <td>
-      <button type="button" (click)="alternar(p.idAtendimento)">
-        {{ pedidoAberto === p.idAtendimento ? 'Ocultar itens' : 'Ver itens' }}
-      </button>
-    </td>
-  </tr>
-</tbody>
-
-       <div *ngIf="pedidoAberto">
-  <h3>Itens do pedido</h3>
-
-  <table>
-    <tr>
-      <th>Item</th>
-      <th>Quantidade</th>
-      <th>Valor unitário</th>
-      <th>Subtotal</th>
-    </tr>
-
-    <tr *ngFor="let i of pedidos.find(p => p.idAtendimento === pedidoAberto)?.itens">
-      <td>{{ i.item }}</td>
-      <td>{{ i.quantidade }}</td>
-      <td>{{ i.valorUnitario | currency:'BRL' }}</td>
-      <td>{{ i.valorUnitario * i.quantidade | currency:'BRL' }}</td>
-    </tr>
+      <tr *ngFor="let p of pedidos">
+        <td>{{ p.idAtendimento }}</td>
+        <td>{{ p.dataAtendimento | date:'dd/MM/yyyy' }}</td>
+        <td>{{ calcularTotal(p) | currency:'BRL' }}</td>
+        <td>{{ p.statusAtendimento }}</td>
+        <td>
+          <button type="button" (click)="alternar(p.idAtendimento)">
+            {{ pedidoAberto === p.idAtendimento ? 'Ocultar itens' : 'Ver itens' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
   </table>
+
+  <div *ngIf="pedidoAberto !== null">
+    <h3>Itens do pedido {{ pedidoAberto }}</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantidade</th>
+          <th>Valor unitário</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+
+      <tbody>
+         <tr *ngFor="let i of itensDoPedido()">          <td>{{ i.item }}</td>
+          <td>{{ i.quantidade }}</td>
+          <td>{{ i.valorUnitario | currency:'BRL' }}</td>
+          <td>{{ i.valorUnitario * i.quantidade | currency:'BRL' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
