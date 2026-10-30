@@ -17,7 +17,8 @@ export class PedidoService {
   }
 
 
-  listarDoCliente(idCliente: number) {
-    return this .http.get<any[]>(`${this.apiUrl}/Pessoa/${idCliente}/pedidos`);
-  }
+  listarDoCliente(idPessoa: number) {
+    return this.http.get<any[]>(`${this.apiUrl}/Atendimento/cliente/${idPessoa}`);
+}
+  
 }
