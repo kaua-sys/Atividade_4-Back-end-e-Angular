@@ -1,7 +1,8 @@
 <h1>Carrinho</h1>
 
 <p *ngIf="carrinho.length === 0">
-  Seu carrinho está vazio. <a routerLink="/catalogo">Voltar ao catálogo</a>
+  Seu carrinho está vazio.
+  <a routerLink="/catalogo">Voltar ao catálogo</a>
 </p>
 
 <table *ngIf="carrinho.length > 0">
@@ -14,6 +15,7 @@
       <th></th>
     </tr>
   </thead>
+
   <tbody>
     <tr *ngFor="let item of carrinho">
       <td>{{ item.nome }}</td>
@@ -24,26 +26,19 @@
         <button type="button" (click)="aumentar(item)">+</button>
       </td>
       <td>{{ item.preco * item.quantidade | currency:'BRL' }}</td>
-      <td><button type="button" (click)="remover(item)">Remover</button></td>
+      <td>
+        <button type="button" (click)="remover(item)">Remover</button>
+      </td>
     </tr>
   </tbody>
 </table>
 
 <div *ngIf="carrinho.length > 0">
   <h2>Total: {{ calcularTotal() | currency:'BRL' }}</h2>
+
   <button type="button" (click)="limpar()">Limpar carrinho</button>
-  <button type="button" (click)="confirmando = true">Confirmar pedido</button>
+
+  <button type="button" (click)="confirmar()" [disabled]="enviando">
+    {{ enviando ? 'Enviando...' : 'Confirmar pedido' }}
+  </button>
 </div>
-
-<form *ngIf="confirmando && carrinho.length > 0" (ngSubmit)="confirmar()">
-  <h3>Identifique-se para confirmar o pedido</h3>
-
-  <label>CPF:</label>
-  <input name="cpf" [(ngModel)]="cpf" required>
-
-  <label>E-mail:</label>
-  <input type="email" name="email" [(ngModel)]="email" required>
-
-  <button type="submit" [disabled]="enviando">Finalizar pedido</button>
-  <button type="button" (click)="confirmando = false">Cancelar</button>
-</form>
