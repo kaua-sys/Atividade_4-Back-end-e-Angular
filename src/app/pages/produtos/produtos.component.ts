@@ -35,30 +35,33 @@ export class GerenciarItensComponent implements OnInit {
     });
   }
 
+  
+
   salvar(): void {
     const item = {
-      item: {
-        item1: this.novoItem.nome,
-        descricaoItem: this.novoItem.descricao,
-        tipoItem: this.novoItem.tipo,
-        ativoProdutoServico: 'S',
-        categoriaIdcategoria: this.novoItem.categoria
-      },
-      precoVenda: this.novoItem.preco
+      idCategoria: this.novoItem.categoria,
+      item: this.novoItem.nome,
+      descricaoItem: this.novoItem.descricao,
+      preco: this.novoItem.preco,
+      tipoItem: this.novoItem.tipo,
+      ativoProdutoServico: 'S',
+      codigoPreco: 1,
+      precoVenda: this.novoItem.preco,
+      unidade: 'UN'
     };
-
-    if (this.editandoId) {
-      this.produtoService.editar(this.editandoId, item).subscribe(() => {
-        this.carregarItens();
-        this.cancelar();
-      });
-    } else {
-      this.produtoService.cadastrar(item).subscribe(() => {
-        this.carregarItens();
-        this.cancelar();
-      });
-    }
+  
+    const requisicao = this.editandoId
+      ? this.produtoService.editar(this.editandoId, item)
+      : this.produtoService.cadastrar(item);
+  
+    requisicao.subscribe(() => {
+      this.carregarItens();
+      this.cancelar();
+      alert('Salvo com sucesso!');
+    });
   }
+  
+
 
   editar(item: any): void {
     this.editandoId = item.iditem;
@@ -72,11 +75,22 @@ export class GerenciarItensComponent implements OnInit {
     };
   }
 
-  desativar(id: number): void {
-    this.produtoService.desativar(id).subscribe(() => {
-      this.carregarItens();
+  
+excluir(id: number): void {
+  if (confirm('Deseja realmente excluir este item?')) {
+    this.produtoService.excluir(id).subscribe({
+      next: () => {
+        this.carregarItens();
+        alert('Item excluído com sucesso!');
+      },
+      error: (erro) => {
+        console.log(erro);
+        alert(erro.error?.mensagem || 'Erro ao excluir item.');
+      }
     });
   }
+}
+
 
   cancelar(): void {
     this.editandoId = null;
