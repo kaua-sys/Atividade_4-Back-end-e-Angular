@@ -1,7 +1,7 @@
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgForm } from '@angular/forms';
 import { FuncionarioService } from '../../services/funcionario.service';
 
 @Component({
@@ -14,14 +14,12 @@ import { FuncionarioService } from '../../services/funcionario.service';
 export class FuncionariosComponent implements OnInit {
 
   funcionarios: any[] = [];
+  editandoId: number | null = null;
   novoFuncionario = this.vazio();
 
   constructor(private service: FuncionarioService) {}
 
-
-  editandoId: number | null = null;
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.carregar();
   }
 
@@ -31,8 +29,8 @@ export class FuncionariosComponent implements OnInit {
       dataAdmissao: '',
       pessoa: {
         nome: '',
-         cpf: '', 
-         email: '',
+        cpf: '',
+        email: '',
         telefone: '',
         sexo: '',
         dataNascimento: '',
@@ -41,41 +39,42 @@ export class FuncionariosComponent implements OnInit {
     };
   }
 
-  carregar() {
+  carregar(): void {
     this.service.listar().subscribe(dados => this.funcionarios = dados);
   }
 
-  salvar() {
+  salvar(): void {
     const requisicao = this.editandoId
       ? this.service.atualizar(this.editandoId, this.novoFuncionario)
       : this.service.cadastrar(this.novoFuncionario);
-  
+
     requisicao.subscribe({
       next: () => {
-        alert(this.editandoId ? 'Funcionário atualizado!' : 'Funcionário cadastrado!');
+        alert('Funcionário salvo com sucesso!');
         this.novoFuncionario = this.vazio();
         this.editandoId = null;
         this.carregar();
       },
-      error: (erro) => {
-        alert(erro.error || 'Erro ao salvar funcionário.');
-      }
+      error: erro => alert(erro.error || 'Erro ao salvar funcionário.')
     });
   }
 
-  editar(f: any) {
+  editar(f: any): void {
     this.editandoId = f.idPessoa;
+
     this.novoFuncionario = {
       cargo: f.cargo,
-      dataAdmissao: (f.dataAdmissao ?? '').substring(0, 10),
-      pessoa: { ...f.pessoa,
-        dataNascimento: (f.pessoa.dataNascimento ?? '').substring(0, 10)
+      dataAdmissao: f.dataAdmissao?.substring(0, 10),
+      pessoa: {
+        ...f.pessoa,
+        dataNascimento: f.pessoa.dataNascimento?.substring(0, 10)
       }
     };
   }
 
-  excluir(idPessoa: number) {
+  excluir(idPessoa: number): void {
     if (!confirm('Deseja excluir este funcionário?')) return;
+
     this.service.excluir(idPessoa).subscribe(() => this.carregar());
   }
 }
