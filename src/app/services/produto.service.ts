@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -22,7 +23,7 @@ export class ProdutoService {
     return this.http.put(`${this.apiUrl}/${id}`, item);
   }
 
-  desativar(id: number) {
-    return this.http.put(`${this.apiUrl}/${id}/desativar`, {});
+  excluir(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
