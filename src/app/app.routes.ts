@@ -5,6 +5,7 @@ import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 import { CarrinhoComponent } from './pages/carrinho/carrinho.component';
 import { MeusPedidosComponent } from './pages/meus-pedidos/meus-pedidos.component';
 import { GerenciarPedidosComponent } from './pages/gerenciar-pedidos/gerenciar-pedidos.component';
+import { GerenciarItensComponent } from './pages/produtos/produtos.component';
 
 export const routes: Routes = [
   {
@@ -27,5 +28,8 @@ export const routes: Routes = [
   },
   {
     path: 'gerenciar',component:GerenciarPedidosComponent
+  },
+  {
+    path: 'produtos',component:GerenciarItensComponent
   }
 ];
