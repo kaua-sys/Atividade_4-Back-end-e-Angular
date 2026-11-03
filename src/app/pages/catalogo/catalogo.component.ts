@@ -32,7 +32,7 @@ export class CatalogoComponent implements OnInit {
   filtrarProdutos(): void {
     this.produtosFiltrados = this.produtos.filter(produto => { const nome = produto.item?.item1 || '';
   
-    const nomeCorresponde = nome .toLowerCase() .includes(this.pesquisa.toLowerCase());
+    const nomeCorresponde = nome.toLowerCase().includes(this.pesquisa.toLowerCase());
   
       const tipoCorresponde = this.tipoSelecionado === 'T' || produto.item?.tipoItem === this.tipoSelecionado;
   
