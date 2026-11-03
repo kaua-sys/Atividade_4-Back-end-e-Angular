@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,12 +13,8 @@ import { PedidoService } from '../../services/pedido.service';
   styleUrl: './carrinho.component.css'
 })
 export class CarrinhoComponent implements OnInit {
-  carrinho: any[] = [];
 
-  confirmando = false;
-  enviando = false;
-  cpf = '';
-  email = '';
+  carrinho: any[] = [];
 
   constructor(private pedidoService: PedidoService) {}
 
@@ -31,9 +28,10 @@ export class CarrinhoComponent implements OnInit {
 
   aumentar(item: any): void {
     if (item.estoque !== undefined && item.quantidade >= item.estoque) {
-      alert('Quantidade máxima em estoque atingida.');
+      alert('Estoque insuficiente.');
       return;
     }
+
     item.quantidade++;
     this.salvar();
   }
@@ -56,37 +54,30 @@ export class CarrinhoComponent implements OnInit {
   }
 
   calcularTotal(): number {
-    return this.carrinho.reduce((t, i) => t + i.preco * i.quantidade, 0);
+    return this.carrinho.reduce((total, item) => total + item.preco * item.quantidade, 0);
   }
 
- 
-confirmar(): void {
-  if (this.carrinho.length === 0) {
-    alert('Seu carrinho está vazio.');
-    return;
-  }
-
-  const atendimento = {
-    idPessoa: 1,
-    statusAtendimento: 'A',
-    itens: this.carrinho.map(i => ({
-      idItem: i.iditem,
-      quantidade: i.quantidade
-    }))
-  };
-
-  this.pedidoService.criar(atendimento).subscribe({
-    next: resposta => {
-      alert(`Pedido nº ${resposta.id} registrado com sucesso!`);
-      this.limpar();
-    },
-    error: erro => {
-      alert(this.mensagemDe(erro, 'Erro ao registrar o pedido.'));
+  confirmar(): void {
+    if (this.carrinho.length === 0) {
+      alert('Carrinho vazio.');
+      return;
     }
-  });
-}
 
-  private mensagemDe(erro: any, padrao: string): string {
-    return typeof erro.error === 'string' && erro.error ? erro.error : padrao;
+    const atendimento = {
+      idPessoa: 1,
+      statusAtendimento: 'A',
+      itens: this.carrinho.map(item => ({
+        idItem: item.iditem,
+        quantidade: item.quantidade
+      }))
+    };
+
+    this.pedidoService.criar(atendimento).subscribe({
+      next: () => {
+        alert('Pedido registrado com sucesso!');
+        this.limpar();
+      },
+      error: () => alert('Erro ao registrar o pedido.')
+    });
   }
 }
