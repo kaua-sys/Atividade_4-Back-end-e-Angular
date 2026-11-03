@@ -35,4 +35,13 @@ testem.log
 .DS_Store
 Thumbs.db
 
-Atividade 3
+# arquivos temporários do visual studio
+.vs/
+**/.vs/
+bin/
+obj/
+
+# configurações locais do backend
+Atividade 3/Atividade 3/appsettings.json
+Atividade 3/Atividade 3/appsettings.Development.json
+Atividade 3/Atividade 3/*.csproj.user
