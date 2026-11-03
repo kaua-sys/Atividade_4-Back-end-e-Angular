@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -5,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FuncionarioService {
+
   private apiUrl = 'https://localhost:7032/api/Funcionario';
 
   constructor(private http: HttpClient) {}
@@ -18,7 +20,7 @@ export class FuncionarioService {
   }
 
   cadastrar(funcionario: any) {
-    return this.http.post(this.apiUrl,funcionario,{responseType: 'text' });
+    return this.http.post(this.apiUrl, funcionario, { responseType: 'text' });
   }
 
   atualizar(id: number, funcionario: any) {
