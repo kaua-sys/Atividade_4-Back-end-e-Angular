@@ -28,7 +28,6 @@ export class ClientesComponent implements OnInit {
   
 cadastrar() {
   if (this.cliente.idPessoa) {
-    // Atualizar cliente existente
     this.service.atualizar(this.cliente.idPessoa, this.cliente).subscribe(() => {
         alert('Cliente atualizado!');
         this.cliente = {};
