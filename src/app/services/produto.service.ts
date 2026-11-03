@@ -13,4 +13,16 @@ export class ProdutoService {
   listar() {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  cadastrar(item: any) {
+    return this.http.post(this.apiUrl, item);
+  }
+
+  editar(id: number, item: any) {
+    return this.http.put(`${this.apiUrl}/${id}`, item);
+  }
+
+  desativar(id: number) {
+    return this.http.put(`${this.apiUrl}/${id}/desativar`, {});
+  }
 }
