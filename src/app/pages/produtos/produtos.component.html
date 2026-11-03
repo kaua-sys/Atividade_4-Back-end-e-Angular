@@ -1,1 +1,58 @@
-<p>produtos works!</p>
+<h1>Gerenciar Produtos e Serviços</h1>
+
+<h2>{{ editandoId ? 'Editar item' : 'Cadastrar item' }}</h2>
+
+<form (ngSubmit)="salvar()">
+
+  <label>Nome:</label>
+  <input type="text" name="nome" [(ngModel)]="novoItem.nome" required>
+
+  <label>Descrição:</label>
+  <textarea name="descricao" [(ngModel)]="novoItem.descricao"></textarea>
+
+  <label>Tipo:</label>
+  <select name="tipo" [(ngModel)]="novoItem.tipo">
+    <option value="P">Produto</option>
+    <option value="S">Serviço</option>
+  </select>
+
+  <label>Preço:</label>
+  <input type="number" name="preco" [(ngModel)]="novoItem.preco">
+
+  <label>ID da categoria:</label>
+  <input type="number" name="categoria" [(ngModel)]="novoItem.categoria">
+
+  <button type="submit">
+    {{ editandoId ? 'Salvar alterações' : 'Cadastrar' }}
+  </button>
+
+  <button type="button" *ngIf="editandoId" (click)="cancelar()">
+    Cancelar
+  </button>
+
+</form>
+
+<h2>Itens cadastrados</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Tipo</th>
+      <th>Preço</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let item of itens">
+      <td>{{ item.item?.item1 }}</td>
+      <td>{{ item.item?.tipoItem === 'P' ? 'Produto' : 'Serviço' }}</td>
+      <td>{{ item.precoVenda | currency:'BRL' }}</td>
+      <td>
+        <button type="button" (click)="editar(item)">Editar</button>
+        <button type="button" (click)="desativar(item.iditem)">Desativar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
