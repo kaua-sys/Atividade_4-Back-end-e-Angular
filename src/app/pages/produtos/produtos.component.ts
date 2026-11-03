@@ -7,8 +7,8 @@ import { ProdutoService } from '../../services/produto.service';
   selector: 'app-gerenciar-itens',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './gerenciar-itens.component.html',
-  styleUrl: './gerenciar-itens.component.css'
+  templateUrl: './produtos.component.html',
+  styleUrl: './produtos.component.css'
 })
 export class GerenciarItensComponent implements OnInit {
 
