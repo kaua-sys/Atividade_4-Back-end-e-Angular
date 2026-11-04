@@ -8,6 +8,7 @@ import { GerenciarPedidosComponent } from './pages/gerenciar-pedidos/gerenciar-p
 import { GerenciarItensComponent } from './pages/produtos/produtos.component';
 import { CategoriaComponent } from './pages/categoria/categoria.component';
 import { EstoqueComponent } from './pages/estoque/estoque.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -39,5 +40,8 @@ export const routes: Routes = [
   },
   {
     path: 'estoque',component:EstoqueComponent
+  },
+  {
+    path:'admin', component:DashboardComponent
   }
 ];
