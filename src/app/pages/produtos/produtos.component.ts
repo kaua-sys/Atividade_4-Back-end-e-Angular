@@ -38,6 +38,17 @@ export class GerenciarItensComponent implements OnInit {
   
 
   salvar(): void {
+
+    if (
+  !this.novoItem.nome.trim() ||
+  !this.novoItem.descricao.trim() ||
+  !this.novoItem.tipo ||
+  this.novoItem.preco <= 0 ||
+  this.novoItem.categoria <= 0
+  ) {
+  alert('Preencha todos os campos corretamente.');
+  return;
+   }
     const item = {
       idCategoria: this.novoItem.categoria,
       item: this.novoItem.nome,
