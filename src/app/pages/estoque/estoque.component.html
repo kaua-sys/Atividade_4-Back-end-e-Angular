@@ -1,1 +1,23 @@
-<p>estoque works!</p>
+<h1>Controle de Estoque</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Produto</th>
+      <th>Quantidade em estoque</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let item of estoque">
+      <td>{{ item.iditem }}</td>
+      <td>{{ item.nome }}</td>
+      <td>{{ item.quantidade }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="estoque.length === 0">
+  Nenhum produto encontrado no estoque.
+</p>

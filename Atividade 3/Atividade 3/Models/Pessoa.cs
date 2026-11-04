@@ -1,4 +1,4 @@
-﻿using Atividade_3.DTO;
+using Atividade_3.DTO;
 using System;
 using System.Collections.Generic;
 
@@ -21,6 +21,10 @@ public partial class Pessoa
     public long Telefone { get; set; }
 
     public string AtivoPessoa { get; set; } = null!;
+
+    public string TipoUsuario { get; set; } = "cliente";
+
+    public string? SenhaHash { get; set; }
 
     public virtual ICollection<Atendimento> Atendimentos { get; set; } = new List<Atendimento>();
 

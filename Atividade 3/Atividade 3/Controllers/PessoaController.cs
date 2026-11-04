@@ -1,9 +1,8 @@
-﻿
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Atividade_3.DTO;
 using Atividade_3.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
 namespace Atividade_3.Controllers
 {
     [Route("api/[controller]")]
@@ -83,36 +82,47 @@ namespace Atividade_3.Controllers
             return Ok(pessoa);
         }
 
-        // POST: api/Pessoa
-        [HttpPost]
-        public async Task<ActionResult> PostPessoa(PessoaPostDTO dto)
+    // POST: api/Pessoa/login
+    [HttpPost("login")]
+    public async Task<ActionResult> Login(PessoaLoginDTO dto)
+    {
+      var pessoa = await _context.Pessoas
+          .FirstOrDefaultAsync(p => p.Email == dto.Email);
+
+      if (pessoa == null || pessoa.SenhaHash == null)
+      {
+        return Unauthorized(new
         {
-            var pessoa = new Pessoa
-            {
-                Nome = dto.Nome,
-                Cpf = dto.Cpf,
-                DataNascimento = dto.DataNascimento,
-                Sexo = dto.Sexo,
-                Email = dto.Email,
-                Telefone = dto.Telefone,
-                AtivoPessoa = dto.AtivoPessoa
-            };
+          mensagem = "E-mail ou senha incorretos."
+        });
+      }
 
-            _context.Pessoas.Add(pessoa);
-            await _context.SaveChangesAsync();
+      var hasher = new PasswordHasher<Pessoa>();
 
-            return CreatedAtAction(
-                nameof(GetPessoa),
-                new { id = pessoa.Idpessoa },
-                new
-                {
-                    mensagem = "Pessoa cadastrada com sucesso.",
-                    id = pessoa.Idpessoa
-                });
-        }
+      var resultado = hasher.VerifyHashedPassword(
+          pessoa,
+          pessoa.SenhaHash,
+          dto.Senha
+      );
 
-        // POST: api/Pessoa/identificar
-        [HttpPost("identificar")]
+      if (resultado == PasswordVerificationResult.Failed)
+      {
+        return Unauthorized(new
+        {
+          mensagem = "E-mail ou senha incorretos."
+        });
+      }
+
+      return Ok(new
+      {
+        idPessoa = pessoa.Idpessoa,
+        nome = pessoa.Nome,
+        tipoUsuario = pessoa.TipoUsuario
+      });
+    }
+
+    // POST: api/Pessoa/identificar
+    [HttpPost("identificar")]
         public async Task<ActionResult> IdentificarPessoa(PessoaIdentificarDTO dto)
         {
             var pessoa = await _context.Pessoas.FirstOrDefaultAsync(p => p.Cpf == dto.Cpf && p.Email == dto.Email);
