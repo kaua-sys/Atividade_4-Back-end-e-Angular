@@ -1,1 +1,46 @@
-<p>categoria works!</p>
+<div class="container">
+
+  <h2>Categorias</h2>
+
+  <form (ngSubmit)="salvar()">
+
+    <input
+      type="text"
+      name="categoria"
+      [(ngModel)]="categoria.categoria"
+      placeholder="Nome da categoria"
+      required
+    >
+
+    <button type="submit">
+      {{ editando ? 'Atualizar' : 'Cadastrar' }}
+    </button>
+
+    <button type="button" (click)="limpar()">
+      Limpar
+    </button>
+
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Categoria</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let c of categorias">
+        <td>{{ c.idcategoria }}</td>
+        <td>{{ c.categoria }}</td>
+        <td>
+          <button (click)="selecionar(c)">Editar</button>
+          <button (click)="excluir(c.idcategoria)">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
