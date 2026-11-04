@@ -113,7 +113,37 @@ namespace Atividade_3.Controllers
             return Ok(atendimentos);
         }
 
-        [HttpPost]
+    [HttpGet("status/{status}")]
+    public async Task<ActionResult> GetPorStatus(string status)
+    {
+      var atendimentos = await _context.Atendimentos
+          .Where(a => a.StatusAtedimento == status.ToUpper())
+          .Select(a => new AtendimentoListDTO
+          {
+            IdAtendimento = a.Idatendimento,
+            IdPessoa = a.Idpessoa,
+            NomePessoa = a.IdpessoaNavigation.Nome,
+            DataAtendimento = a.DataAtedimento,
+            StatusAtendimento = a.StatusAtedimento,
+
+            Itens = a.Atendimentoitems.Select(i => new AtendimentoItemListDTO
+            {
+              IdAtendimento = i.Idatendimento,
+              IdItem = i.Iditem,
+              Item = i.IditemNavigation.Item1,
+              IdFuncionario = i.Idfuncionario,
+              NomeFuncionario = i.IdfuncionarioNavigation.IdpessoaNavigation.Nome,
+              Cargo = i.IdfuncionarioNavigation.Cargo,
+              Quantidade = i.QuantidadeItens,
+              ValorUnitario = i.ValorunitarioEntrada
+            }).ToList()
+          })
+          .ToListAsync();
+
+      return Ok(atendimentos);
+    }
+
+    [HttpPost]
         public async Task<ActionResult> PostAtendimento(AtendimentoPostDTO dto)
         {
             if (dto == null || dto.Itens == null || !dto.Itens.Any())

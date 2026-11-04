@@ -28,4 +28,11 @@ listarTodos() {
 alterarStatus(id: number, status: string) {
   return this.http.put(`${this.apiUrl}/Atendimento/${id}/status`,{ statusAtendimento: status });
 }
+
+listarPorStatus(status: string) {
+  return this.http.get<any[]>(
+    `${this.apiUrl}/Atendimento/status/${status}`
+  );
+}
+
 }
