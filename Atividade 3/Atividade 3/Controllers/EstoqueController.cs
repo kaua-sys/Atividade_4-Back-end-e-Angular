@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Atividade_3.Models;
+using Atividade_3.DTO;
 
 namespace Atividade_3.Controllers
 {
@@ -60,6 +61,46 @@ namespace Atividade_3.Controllers
       }
 
       return Ok(estoque);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> PostEstoque(EstoquePostDTO dto)
+    {
+      var produto = await _context.Produtos
+          .Include(p => p.IditemNavigation)
+          .FirstOrDefaultAsync(p => p.Iditem == dto.Iditem);
+
+      if (produto == null)
+        return NotFound(new { mensagem = "Produto não encontrado." });
+
+      if (produto.IditemNavigation.TipoItem != "P")
+        return BadRequest(new { mensagem = "Só é permitido cadastrar produtos no estoque." });
+
+      var estoque = await _context.Estoques
+          .FirstOrDefaultAsync(e => e.Iditem == dto.Iditem);
+
+      if (estoque == null)
+      {
+        estoque = new Estoque
+        {
+          Iditem = dto.Iditem,
+          QuantidadeEstoque = dto.QuantidadeEstoque
+        };
+
+        _context.Estoques.Add(estoque);
+      }
+      else
+      {
+        estoque.QuantidadeEstoque += dto.QuantidadeEstoque;
+      }
+
+      await _context.SaveChangesAsync();
+
+      return Ok(new
+      {
+        mensagem = "Estoque atualizado com sucesso!",
+        quantidadeAtual = estoque.QuantidadeEstoque
+      });
     }
   }
 }
