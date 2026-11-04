@@ -287,43 +287,47 @@ namespace Atividade_3.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
+    }
 
         // Alterar situação do pedido
         [HttpPut("{id:int}/status")]
         public async Task<IActionResult> PutStatus(int id, AtendimentoStatusDTO dto)
+    {
+        var atendimento = await _context.Atendimentos
+          .FirstOrDefaultAsync(a => a.Idatendimento == id);
+
+        if (atendimento == null)
         {
-            var atendimento = await _context.Atendimentos
-                .FirstOrDefaultAsync(a => a.Idatendimento == id);
-
-            if (atendimento == null)
-            {
-                return NotFound(new
-                {
-                    mensagem = "Pedido não encontrado."
-                });
-            }
-
-            var status = dto.StatusAtendimento.ToUpper();
-
-            if (status != "A" && status != "P" &&
-                status != "C" && status != "X")
-            {
-                return BadRequest(new
-                {
-                    mensagem = "Situação inválida."
-                });
-            }
-
-            atendimento.StatusAtedimento = status;
-
-            await _context.SaveChangesAsync();
-
-            return Ok(new
-            {
-                mensagem = "Situação do pedido alterada com sucesso."
-            });
+        return NotFound(new { mensagem = "Pedido não encontrado." });
         }
+
+        var status = dto.StatusAtendimento.ToUpper();
+
+         if (status != "A" && status != "P" &&
+          status != "C" && status != "X")
+         {
+         return BadRequest(new { mensagem = "Situação inválida." });
+         }
+
+        // Não permite alterar pedidos concluídos ou cancelados
+        if (atendimento.StatusAtedimento == "C" ||
+          atendimento.StatusAtedimento == "X")
+        {
+        return BadRequest(new
+        {
+          mensagem = "Não é possível alterar um pedido concluído ou cancelado."
+        });
+      }
+
+      atendimento.StatusAtedimento = status;
+
+      await _context.SaveChangesAsync();
+
+      return Ok(new
+      {
+        mensagem = "Situação do pedido alterada com sucesso."
+      });
+    }
 
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAtendimento(int id)
