@@ -1,48 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+<h1>Dashboard Administrativo</h1>
 
-@Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
-})
-export class DashboardComponent implements OnInit {
+<div class="dashboard">
 
-  clientes = 0;
-  produtos = 0;
-  servicos = 0;
-  pedidos = 0;
-  estoque = 0;
+  <div class="card">
+    <h2>Clientes</h2>
+    <p>{{ clientes }}</p>
+  </div>
 
-  constructor(private http: HttpClient) {}
+  <div class="card">
+    <h2>Produtos</h2>
+    <p>{{ produtos }}</p>
+  </div>
 
-  ngOnInit(): void {
-    this.carregarDados();
-  }
+  <div class="card">
+    <h2>Serviços</h2>
+    <p>{{ servicos }}</p>
+  </div>
 
-  carregarDados() {
-    this.http.get<any[]>('https://localhost:7032/api/Pessoa').subscribe({
-      next: dados => this.clientes = dados.length
-    });
+  <div class="card">
+    <h2>Pedidos</h2>
+    <p>{{ pedidos }}</p>
+  </div>
 
-    this.http.get<any[]>('https://localhost:7032/api/ProdutoItem').subscribe({
-      next: dados => {
-        this.produtos = dados.filter(i => i.item?.tipoItem === 'P').length;
-        this.servicos = dados.filter(i => i.item?.tipoItem === 'S').length;
-      }
-    });
+  <div class="card">
+    <h2>Estoque total</h2>
+    <p>{{ estoque }}</p>
+  </div>
 
-    this.http.get<any[]>('https://localhost:7032/api/Atendimento').subscribe({
-      next: dados => this.pedidos = dados.length
-    });
-
-    this.http.get<any[]>('https://localhost:7032/api/Estoque').subscribe({
-      next: dados => {
-        this.estoque = dados.reduce((total, item) => total + item.quantidade, 0);
-      }
-    });
-  }
-}
+</div>
