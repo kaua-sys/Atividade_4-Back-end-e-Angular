@@ -1,27 +1,39 @@
-
 nav {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 12px 20px;
-  background: #2c3e50;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px 25px;
+  background: #e9e4dc;
+  border-bottom: 1px solid #d8d0c5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 nav a {
-  color: #fff;
+  color: #62594f;
   text-decoration: none;
+  padding: 10px 13px;
+  border-radius: 7px;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+nav a:hover {
+  background: #dcd4c9;
+  color: #40382f;
 }
 
 nav a.ativo {
+  background: #c9bba8;
+  color: #40382f;
   font-weight: bold;
-  border-bottom: 2px solid #fff;
 }
 
 nav .link-carrinho {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
+  padding: 8px;
   border: none;
   background: transparent;
 }
@@ -33,4 +45,23 @@ nav .link-carrinho {
 
 .link-carrinho:hover svg {
   transform: scale(1.1);
+}
+
+nav {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logo {
+  color: #62594f;
+  font-size: 21px;
+  font-weight: bold;
+  padding: 5px 12px 12px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
 }
