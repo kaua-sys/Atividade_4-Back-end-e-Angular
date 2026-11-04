@@ -2,57 +2,105 @@
   max-width: 1100px;
   margin: 30px auto;
   padding: 20px;
+  color: #62594f;
 }
 
-h1, h2 {
-  color: #2c3e50;
+h1,
+h2 {
+  color: #62594f;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   max-width: 500px;
   margin: 20px auto 40px;
+  padding: 25px;
+  background: #ffffff;
+  border: 1px solid #e2ddd5;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
 }
 
-input, select, textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+input,
+select,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px;
+  border: 1px solid #d8d0c5;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #514940;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #b9a990;
+  box-shadow: 0 0 0 3px rgba(185, 169, 144, 0.15);
+}
+
+input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;
 }
 
-input [type= "number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{
-    -webkit-appearance: none;
-    margin: 0;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 button {
-  padding: 10px;
+  padding: 11px 16px;
   margin: 3px;
-  background-color: #176b87;
-  color: white;
+  background: #897b68;
+  color: #ffffff;
   border: none;
-  border-radius: 6px;
+  border-radius: 7px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+button:hover {
+  background: #716452;
+  transform: translateY(-1px);
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  background: #ffffff;
+  border-radius: 9px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
 }
 
-th, td {
-  padding: 12px;
+th,
+td {
+  padding: 13px;
   text-align: center;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e9e5df;
 }
 
 th {
-  background-color: #176b87;
-  color: white;
+  background: #e9e4dc;
+  color: #62594f;
+  font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+  background: #faf9f7;
+}
+
+tbody tr:hover {
+  background: #f0ece6;
 }

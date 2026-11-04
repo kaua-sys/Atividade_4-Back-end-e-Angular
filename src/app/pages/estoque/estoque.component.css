@@ -1,25 +1,38 @@
 h1 {
   text-align: center;
   margin: 25px;
+  color: #62594f;
+  font-size: 28px;
 }
 
 table {
   width: 90%;
   margin: 20px auto;
   border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 9px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
 }
 
-th, td {
+th,
+td {
   padding: 12px;
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #e9e5df;
   text-align: center;
+  color: #62594f;
 }
 
 th {
-  background-color: #333;
-  color: white;
+  background: #e9e4dc;
+  color: #62594f;
+  font-weight: 600;
 }
 
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background: #faf9f7;
+}
+
+tbody tr:hover {
+  background: #f0ece6;
 }

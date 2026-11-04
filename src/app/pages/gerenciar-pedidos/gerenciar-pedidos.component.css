@@ -1,55 +1,65 @@
 .pagina-pedidos {
-    max-width: 1100px;
-    margin: 30px auto;
-    padding: 25px;
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 25px;
+  color: #62594f;
 }
 
 h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
+  color: #62594f;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
 }
 
 table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border-radius: 8px;
-    overflow: hidden;
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 9px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
 }
 
-th, td {
-    padding: 14px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
+th,
+td {
+  padding: 14px;
+  text-align: center;
+  border-bottom: 1px solid #e9e5df;
 }
 
 th {
-    background-color: #007bff;
-    color: white;
+  background: #e9e4dc;
+  color: #62594f;
+  font-weight: 600;
 }
 
-tr:hover {
-    background-color: #f5f5f5;
+tbody tr:nth-child(even) {
+  background: #faf9f7;
+}
+
+tbody tr:hover {
+  background: #f0ece6;
 }
 
 select {
-    padding: 9px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color: white;
-    cursor: pointer;
-    outline: none;
+  padding: 10px;
+  border: 1px solid #d8d0c5;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #62594f;
+  cursor: pointer;
+  outline: none;
 }
 
 select:focus {
-    border-color: #007bff;
+  border-color: #b9a990;
+  box-shadow: 0 0 0 3px rgba(185, 169, 144, 0.15);
 }
 
 p {
-    text-align: center;
-    color: #555;
-    margin-top: 25px;
+  text-align: center;
+  color: #81776c;
+  margin-top: 25px;
 }
