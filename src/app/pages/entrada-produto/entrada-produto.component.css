@@ -1,0 +1,64 @@
+.pagina-entrada {
+  max-width: 700px;
+  margin: 35px auto;
+  padding: 30px;
+  background-color: #faf9f7;
+  border: 1px solid #e2ddd5;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+h1 {
+  color: #514940;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 26px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  color: #62594f;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d8d0c5;
+  border-radius: 7px;
+  background-color: #ffffff;
+  color: #514940;
+  font-size: 15px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: #897b68;
+  box-shadow: 0 0 0 2px rgba(137, 123, 104, 0.12);
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #897b68;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #716452;
+}
