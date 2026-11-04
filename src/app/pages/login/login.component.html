@@ -1,1 +1,21 @@
-<p>login works!</p>
+<h2>Entrar</h2>
+
+<form (ngSubmit)="entrar()">
+  <label>E-mail:</label>
+  <input
+    type="email"
+    name="email"
+    [(ngModel)]="email"
+    required
+  >
+
+  <label>Senha:</label>
+  <input
+    type="password"
+    name="senha"
+    [(ngModel)]="senha"
+    required
+  >
+
+  <button type="submit">Entrar</button>
+</form>
