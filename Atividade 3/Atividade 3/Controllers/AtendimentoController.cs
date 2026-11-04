@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Atividade_3.DTO;
 using Atividade_3.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -173,19 +173,31 @@ namespace Atividade_3.Controllers
                 });
             }
 
-            _context.Atendimentos.Add(atendimento);
-            await _context.SaveChangesAsync();
+              await using var transaction = await _context.Database.BeginTransactionAsync();
 
-            return CreatedAtAction(
-                nameof(GetAtendimento),
-                new { id = atendimento.Idatendimento },
-                new
-                {
-                    mensagem = "Atendimento cadastrado com sucesso.",
-                    id = atendimento.Idatendimento
-                }
-            );
-        }
+              try
+              {
+              _context.Atendimentos.Add(atendimento);
+
+               await _context.SaveChangesAsync();
+
+              await transaction.CommitAsync();
+
+              return Ok(new
+              {
+               mensagem = "Atendimento cadastrado com sucesso."
+             });
+             }
+             catch (Exception)
+             {   
+             await transaction.RollbackAsync();
+
+             return BadRequest(new
+             {
+             mensagem = "Erro ao cadastrar. Verifique o estoque disponível."
+          });
+      }
+    }
 
 
         [HttpPut("{id:int}")]

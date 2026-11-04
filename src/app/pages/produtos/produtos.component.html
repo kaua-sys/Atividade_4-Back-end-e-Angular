@@ -1,28 +1,77 @@
+
 <h1>Gerenciar Produtos e Serviços</h1>
 
 <h2>{{ editandoId ? 'Editar item' : 'Cadastrar item' }}</h2>
 
-<form (ngSubmit)="salvar()">
+<form #formItem="ngForm" (ngSubmit)="salvar()" novalidate>
 
   <label>Nome:</label>
-  <input type="text" name="nome" [(ngModel)]="novoItem.nome" required>
+  <input
+    type="text"
+    name="nome"
+    [(ngModel)]="novoItem.nome"
+    required
+    minlength="2"
+    #nome="ngModel">
+
+  <small *ngIf="nome.invalid && nome.touched">
+    Informe um nome com pelo menos 2 caracteres.
+  </small>
 
   <label>Descrição:</label>
-  <textarea name="descricao" [(ngModel)]="novoItem.descricao"></textarea>
+  <textarea
+    name="descricao"
+    [(ngModel)]="novoItem.descricao"
+    required
+    #descricao="ngModel">
+  </textarea>
+
+  <small *ngIf="descricao.invalid && descricao.touched">
+    Informe a descrição.
+  </small>
 
   <label>Tipo:</label>
-  <select name="tipo" [(ngModel)]="novoItem.tipo">
+  <select
+    name="tipo"
+    [(ngModel)]="novoItem.tipo"
+    required
+    #tipo="ngModel">
+    <option value="">Selecione</option>
     <option value="P">Produto</option>
     <option value="S">Serviço</option>
   </select>
 
+  <small *ngIf="tipo.invalid && tipo.touched">
+    Selecione o tipo.
+  </small>
+
   <label>Preço:</label>
-  <input type="number" name="preco" [(ngModel)]="novoItem.preco">
+  <input
+    type="number"
+    name="preco"
+    [(ngModel)]="novoItem.preco"
+    required
+    min="0.01"
+    #preco="ngModel">
+
+  <small *ngIf="preco.invalid && preco.touched">
+    Informe um preço maior que zero.
+  </small>
 
   <label>ID da categoria:</label>
-  <input type="number" name="categoria" [(ngModel)]="novoItem.categoria">
+  <input
+    type="number"
+    name="categoria"
+    [(ngModel)]="novoItem.categoria"
+    required
+    min="1"
+    #categoria="ngModel">
 
-  <button type="submit">
+  <small *ngIf="categoria.invalid && categoria.touched">
+    Informe uma categoria válida.
+  </small>
+
+  <button type="submit" [disabled]="formItem.invalid">
     {{ editandoId ? 'Salvar alterações' : 'Cadastrar' }}
   </button>
 
