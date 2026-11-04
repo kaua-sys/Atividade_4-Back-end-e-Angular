@@ -2,6 +2,14 @@
 
   <h1>Gerenciar Pedidos</h1>
 
+  <select [(ngModel)]="filtroStatus" (change)="filtrarPedidos()">
+  <option value="">Todos os pedidos</option>
+  <option value="A">Aberto</option>
+  <option value="P">Em processamento</option>
+  <option value="C">Concluído</option>
+  <option value="X">Cancelado</option>
+</select>
+
   <p *ngIf="pedidos.length === 0">
     Nenhum pedido cadastrado.
   </p>

@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PedidoService } from '../../services/pedido.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-gerenciar-pedidos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './gerenciar-pedidos.component.html',
   styleUrl: './gerenciar-pedidos.component.css'
 })
 export class GerenciarPedidosComponent implements OnInit {
 
   pedidos: any[] = [];
+  filtroStatus = '';
 
   constructor(private pedidoService: PedidoService) {}
 
@@ -52,4 +54,17 @@ export class GerenciarPedidosComponent implements OnInit {
       default: return status;
     }
   }
+
+  filtrarPedidos(): void {
+  if (this.filtroStatus === '') {
+    this.carregarPedidos();
+    return;
+  }
+
+  this.pedidoService.listarPorStatus(this.filtroStatus).subscribe({
+    next: dados => this.pedidos = dados,
+    error: () => alert('Erro ao filtrar os pedidos.')
+  });
+}
+
 }
