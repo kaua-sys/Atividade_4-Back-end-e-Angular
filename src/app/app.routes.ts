@@ -6,6 +6,7 @@ import { CarrinhoComponent } from './pages/carrinho/carrinho.component';
 import { MeusPedidosComponent } from './pages/meus-pedidos/meus-pedidos.component';
 import { GerenciarPedidosComponent } from './pages/gerenciar-pedidos/gerenciar-pedidos.component';
 import { GerenciarItensComponent } from './pages/produtos/produtos.component';
+import { CategoriaComponent } from './pages/categoria/categoria.component';
 
 export const routes: Routes = [
   {
@@ -31,5 +32,8 @@ export const routes: Routes = [
   },
   {
     path: 'produtos',component:GerenciarItensComponent
+  },
+  {
+    path: 'categoria',component:CategoriaComponent
   }
 ];
