@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -9,15 +8,4 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
-export class MenuComponent {
-
-  constructor(
-    public authService: AuthService,
-    private router: Router
-  ) {}
-
-  sair() {
-    this.authService.sair();
-    this.router.navigate(['/login']);
-  }
-}
+export class MenuComponent {}
