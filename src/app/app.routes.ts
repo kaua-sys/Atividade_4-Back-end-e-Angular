@@ -7,6 +7,7 @@ import { MeusPedidosComponent } from './pages/meus-pedidos/meus-pedidos.componen
 import { GerenciarPedidosComponent } from './pages/gerenciar-pedidos/gerenciar-pedidos.component';
 import { GerenciarItensComponent } from './pages/produtos/produtos.component';
 import { CategoriaComponent } from './pages/categoria/categoria.component';
+import { EstoqueComponent } from './pages/estoque/estoque.component';
 
 export const routes: Routes = [
   {
@@ -35,5 +36,8 @@ export const routes: Routes = [
   },
   {
     path: 'categoria',component:CategoriaComponent
+  },
+  {
+    path: 'estoque',component:EstoqueComponent
   }
 ];
