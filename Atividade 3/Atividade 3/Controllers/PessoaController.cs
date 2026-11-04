@@ -1,5 +1,4 @@
 
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Atividade_3.DTO;
 using Atividade_3.Models;
@@ -98,60 +97,16 @@ namespace Atividade_3.Controllers
         Sexo = dto.Sexo,
         Email = dto.Email,
         Telefone = dto.Telefone,
-        AtivoPessoa = dto.AtivoPessoa,
-        TipoUsuario = "cliente"
+        AtivoPessoa = dto.AtivoPessoa
       };
-
-      var hasher = new PasswordHasher<Pessoa>();
-
-      pessoa.SenhaHash = hasher.HashPassword(pessoa, "cliente");
 
       _context.Pessoas.Add(pessoa);
       await _context.SaveChangesAsync();
 
       return Ok(new
       {
-        mensagem = "Cliente cadastrado com sucesso!",
+        mensagem = "Pessoa cadastrada com sucesso!",
         idPessoa = pessoa.Idpessoa
-      });
-    }
-
-    // POST: api/Pessoa/login
-    [HttpPost("login")]
-    public async Task<ActionResult> Login(PessoaLoginDTO dto)
-    {
-      var pessoa = await _context.Pessoas
-          .FirstOrDefaultAsync(p => p.Email == dto.Email);
-
-      if (pessoa == null || pessoa.SenhaHash == null)
-      {
-        return Unauthorized(new
-        {
-          mensagem = "E-mail ou senha incorretos."
-        });
-      }
-
-      var hasher = new PasswordHasher<Pessoa>();
-
-      var resultado = hasher.VerifyHashedPassword(
-          pessoa,
-          pessoa.SenhaHash,
-          dto.Senha
-      );
-
-      if (resultado == PasswordVerificationResult.Failed)
-      {
-        return Unauthorized(new
-        {
-          mensagem = "E-mail ou senha incorretos."
-        });
-      }
-
-      return Ok(new
-      {
-        idPessoa = pessoa.Idpessoa,
-        nome = pessoa.Nome,
-        tipoUsuario = pessoa.TipoUsuario
       });
     }
 

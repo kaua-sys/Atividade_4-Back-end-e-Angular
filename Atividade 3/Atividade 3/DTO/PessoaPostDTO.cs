@@ -10,6 +10,5 @@ namespace Atividade_3.DTO
     public string Email { get; set; } = null!;
     public long Telefone { get; set; }
     public string AtivoPessoa { get; set; } = null!;
-    public string Senha { get; set; } = null!;
   }
 }

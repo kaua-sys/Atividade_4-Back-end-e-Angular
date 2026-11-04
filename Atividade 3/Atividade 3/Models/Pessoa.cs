@@ -22,10 +22,6 @@ public partial class Pessoa
 
     public string AtivoPessoa { get; set; } = null!;
 
-    public string TipoUsuario { get; set; } = "cliente";
-
-    public string? SenhaHash { get; set; }
-
     public virtual ICollection<Atendimento> Atendimentos { get; set; } = new List<Atendimento>();
 
     public virtual ICollection<Endereco> Enderecos { get; set; } = new List<Endereco>();
