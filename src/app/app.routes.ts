@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 import { FuncionariosComponent } from './pages/funcionarios/funcionarios.component';
 import { ClientesComponent } from './pages/clientes/clientes.component';
 import { CatalogoComponent } from './pages/catalogo/catalogo.component';
@@ -13,39 +14,49 @@ import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
   {
-   path: '', redirectTo: 'login', pathMatch: 'full' 
-  },
-  { 
-   path: 'funcionarios',component: FuncionariosComponent 
-  },
-  { 
-   path: 'clientes',component: ClientesComponent 
+    path: '', redirectTo: 'login', pathMatch: 'full'
   },
   {
-   path: 'catalogo',component: CatalogoComponent
+    path: 'funcionarios', component: FuncionariosComponent,
+    canActivate: [authGuard], data: { roles: ['admin','funcionario'] }
   },
   {
-   path: 'carrinho',component: CarrinhoComponent
+    path: 'clientes', component: ClientesComponent,
+    canActivate: [authGuard], data: { roles: ['admin'] }
   },
   {
-    path: 'pedidos',component: MeusPedidosComponent
+    path: 'catalogo', component: CatalogoComponent,
+    canActivate: [authGuard], data: { roles: ['cliente'] }
   },
   {
-    path: 'gerenciar',component:GerenciarPedidosComponent
+    path: 'carrinho', component: CarrinhoComponent,
+    canActivate: [authGuard], data: { roles: ['cliente'] }
   },
   {
-    path: 'produtos',component:GerenciarItensComponent
+    path: 'pedidos', component: MeusPedidosComponent,
+    canActivate: [authGuard], data: { roles: ['cliente'] }
   },
   {
-    path: 'categoria',component:CategoriaComponent
+    path: 'gerenciar', component: GerenciarPedidosComponent,
+    canActivate: [authGuard], data: { roles: ['admin', 'funcionario'] }
   },
   {
-    path: 'estoque',component:EstoqueComponent
+    path: 'produtos', component: GerenciarItensComponent,
+    canActivate: [authGuard], data: { roles: ['admin'] }
   },
   {
-    path:'admin', component:DashboardComponent
+    path: 'categoria', component: CategoriaComponent,
+    canActivate: [authGuard], data: { roles: ['admin'] }
   },
   {
-    path:'login',component:LoginComponent
+    path: 'estoque', component: EstoqueComponent,
+    canActivate: [authGuard], data: { roles: ['admin', 'funcionario'] }
+  },
+  {
+    path: 'admin', component: DashboardComponent,
+    canActivate: [authGuard], data: { roles: ['admin'] }
+  },
+  {
+    path: 'login', component: LoginComponent
   }
 ];
