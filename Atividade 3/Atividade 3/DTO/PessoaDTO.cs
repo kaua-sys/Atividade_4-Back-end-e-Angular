@@ -1,4 +1,4 @@
-﻿namespace Atividade_3.DTO
+namespace Atividade_3.DTO
 {
     public class PessoaDTO
     {
@@ -14,7 +14,7 @@
 
         public string? Email { get; set;}
 
-        public long? Telefone { get; set; }
+        public string Telefone { get; set; } = null!;
 
         public string? AtivoPessoa { get; set; }
 

@@ -18,7 +18,7 @@ public partial class Pessoa
 
     public string Email { get; set; } = null!;
 
-    public long Telefone { get; set; }
+    public string Telefone { get; set; } = null!;
 
     public string AtivoPessoa { get; set; } = null!;
 

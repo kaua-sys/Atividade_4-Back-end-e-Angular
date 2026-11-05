@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Atividade_3.DTO;
 using Atividade_3.Models;
@@ -130,7 +130,7 @@ namespace Atividade_3.Controllers
                 DataNascimento = dto.Pessoa.DataNascimento,
                 Sexo = dto.Pessoa.Sexo,
                 Email = dto.Pessoa.Email,
-                Telefone = dto.Pessoa.Telefone.Value,
+                Telefone = dto.Pessoa.Telefone,
                 AtivoPessoa = "A",
 
                 // Cadastra também os endereços informados
@@ -196,7 +196,7 @@ namespace Atividade_3.Controllers
             funcionario.IdpessoaNavigation.DataNascimento = dto.Pessoa.DataNascimento;
             funcionario.IdpessoaNavigation.Sexo = dto.Pessoa.Sexo!;
             funcionario.IdpessoaNavigation.Email = dto.Pessoa.Email!;
-            funcionario.IdpessoaNavigation.Telefone = dto.Pessoa.Telefone.Value;
+            funcionario.IdpessoaNavigation.Telefone = dto.Pessoa.Telefone;
 
             // Recebe a lista de endereços enviada
             var enderecosDto = dto.Pessoa.Enderecos ?? new List<EnderecoDTO>();
