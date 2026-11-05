@@ -100,7 +100,7 @@
       <td>{{ item.precoVenda | currency:'BRL' }}</td>
       <td>
         <button type="button" (click)="editar(item)">Editar</button>
-        <button type="button" (click)="desativar(item.iditem)">Desativar</button>
+        <button type="button" (click)="alterarStatus(item.iditem)">{{ item.item?.ativoProdutoServico === 'S' ? 'Desativar' : 'Ativar' }}</button>
       </td>
     </tr>
   </tbody>

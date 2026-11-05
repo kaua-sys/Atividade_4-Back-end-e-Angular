@@ -271,29 +271,30 @@ namespace Atividade_3.Controllers
             }
         }
 
-       [HttpPut("desativar/{id:int}")]
-       public async Task<IActionResult> DesativarProduto(int id)
-       {
-       var item = await _context.Items
+    [HttpPut("alterar-status/{id:int}")]
+    public async Task<IActionResult> AlterarStatus(int id)
+    {
+      var item = await _context.Items
           .FirstOrDefaultAsync(i => i.Iditem == id);
 
-       if (item == null)
-       {
+      if (item == null)
+      {
         return NotFound(new
         {
-          mensagem = "Produto não encontrado."
+          mensagem = "Item não encontrado."
         });
-       }
+      }
 
-       item.AtivoProdutoServico = "N";
+      item.AtivoProdutoServico =
+          item.AtivoProdutoServico == "S" ? "N" : "S";
 
-       await _context.SaveChangesAsync();
+      await _context.SaveChangesAsync();
 
-       return Ok(new
-       {
-        mensagem = "Produto desativado com sucesso."
-       });
-     }
+      return Ok(new
+      {
+        mensagem = "Status alterado com sucesso."
+      });
+    }
 
     private bool ProdutoExists(int id)
         {

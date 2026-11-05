@@ -102,19 +102,17 @@ excluir(id: number): void {
   }
 }
 
-desativar(id: number): void {
-  if (confirm('Deseja realmente desativar este item?')) {
-    this.produtoService.desativar(id).subscribe({
-      next: () => {
-        this.carregarItens();
-        alert('Item desativado com sucesso!');
-      },
-      error: (erro) => {
-        console.log(erro);
-        alert('Erro ao desativar item.');
-      }
-    });
-  }
+alterarStatus(id: number): void {
+  this.produtoService.alterarStatus(id).subscribe({
+    next: () => {
+      this.carregarItens();
+      alert('Status alterado com sucesso!');
+    },
+    error: (erro) => {
+      console.log(erro);
+      alert('Erro ao alterar status.');
+    }
+  });
 }
 
   cancelar(): void {
