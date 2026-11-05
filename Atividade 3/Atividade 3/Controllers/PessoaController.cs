@@ -92,7 +92,7 @@ namespace Atividade_3.Controllers
       var pessoa = new Pessoa
       {
         Nome = dto.Nome,
-        Cpf = dto.Cpf,
+        Cpf = (ulong)dto.Cpf,
         DataNascimento = dto.DataNascimento,
         Sexo = dto.Sexo,
         Email = dto.Email,
@@ -148,7 +148,7 @@ namespace Atividade_3.Controllers
       }
 
       pessoa.Nome = dto.Nome;
-      pessoa.Cpf = dto.Cpf;
+      pessoa.Cpf = (ulong)dto.Cpf;
       pessoa.DataNascimento = dto.DataNascimento;
       pessoa.Sexo = dto.Sexo;
       pessoa.Email = dto.Email;

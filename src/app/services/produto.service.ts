@@ -26,4 +26,8 @@ export class ProdutoService {
   excluir(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+  
+  desativar(id: number) {
+  return this.http.put(`${this.apiUrl}/desativar/${id}`, {});
+}
 }

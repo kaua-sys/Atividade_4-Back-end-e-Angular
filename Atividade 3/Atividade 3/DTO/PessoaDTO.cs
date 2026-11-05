@@ -6,7 +6,7 @@ namespace Atividade_3.DTO
 
         public string? Nome { get; set; }
 
-        public long? Cpf { get; set; }
+        public ulong? Cpf { get; set; }
 
         public DateOnly DataNascimento { get; set; }
 

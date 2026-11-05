@@ -102,6 +102,20 @@ excluir(id: number): void {
   }
 }
 
+desativar(id: number): void {
+  if (confirm('Deseja realmente desativar este item?')) {
+    this.produtoService.desativar(id).subscribe({
+      next: () => {
+        this.carregarItens();
+        alert('Item desativado com sucesso!');
+      },
+      error: (erro) => {
+        console.log(erro);
+        alert('Erro ao desativar item.');
+      }
+    });
+  }
+}
 
   cancelar(): void {
     this.editandoId = null;

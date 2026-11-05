@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Atividade_3.DTO;
 using Atividade_3.Models;
@@ -271,7 +271,31 @@ namespace Atividade_3.Controllers
             }
         }
 
-        private bool ProdutoExists(int id)
+       [HttpPut("desativar/{id:int}")]
+       public async Task<IActionResult> DesativarProduto(int id)
+       {
+       var item = await _context.Items
+          .FirstOrDefaultAsync(i => i.Iditem == id);
+
+       if (item == null)
+       {
+        return NotFound(new
+        {
+          mensagem = "Produto não encontrado."
+        });
+       }
+
+       item.AtivoProdutoServico = "N";
+
+       await _context.SaveChangesAsync();
+
+       return Ok(new
+       {
+        mensagem = "Produto desativado com sucesso."
+       });
+     }
+
+    private bool ProdutoExists(int id)
         {
             return _context.Produtos.Any(p => p.Iditem == id);
         }

@@ -84,11 +84,11 @@ namespace AplicacaoBackAula.Controllers
       var ObjPessoa = new Pessoa
       {
         Nome = dto.Nome,
-        Cpf = (long)dto.Cpf,
+        Cpf = dto.Cpf.Value,
         DataNascimento = dto.DataNascimento,
         Sexo = dto.Sexo,
         Email = dto.Email,
-        Telefone = dto.Telefone,
+        Telefone = dto.Telefone.Value,
         AtivoPessoa = dto.AtivoPessoa = "A",
 
         Enderecos = dto.Enderecos.Select(e => new Endereco
@@ -138,11 +138,11 @@ namespace AplicacaoBackAula.Controllers
       }
       //Procu
       pessoa.Nome = dto.Nome;
-      pessoa.Cpf = (long)dto.Cpf;
+      pessoa.Cpf = dto.Cpf.Value;
       pessoa.DataNascimento = dto.DataNascimento;
       pessoa.Sexo = dto.Sexo;
       pessoa.Email = dto.Email;
-      pessoa.Telefone = dto.Telefone;
+      pessoa.Telefone = dto.Telefone.Value;
 
 
       var idRecebidos = dto.Enderecos.Where(e => e.IdEndereco.HasValue).Select(e => e.IdEndereco!.Value).ToHashSet();
