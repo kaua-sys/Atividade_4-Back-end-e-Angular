@@ -130,7 +130,7 @@ namespace Atividade_3.Controllers
                 DataNascimento = dto.Pessoa.DataNascimento,
                 Sexo = dto.Pessoa.Sexo,
                 Email = dto.Pessoa.Email,
-                Telefone = dto.Pessoa.Telefone,
+                Telefone = dto.Pessoa.Telefone.Value,
                 AtivoPessoa = "A",
 
                 // Cadastra também os endereços informados
@@ -196,10 +196,10 @@ namespace Atividade_3.Controllers
             funcionario.IdpessoaNavigation.DataNascimento = dto.Pessoa.DataNascimento;
             funcionario.IdpessoaNavigation.Sexo = dto.Pessoa.Sexo!;
             funcionario.IdpessoaNavigation.Email = dto.Pessoa.Email!;
-            funcionario.IdpessoaNavigation.Telefone = dto.Pessoa.Telefone;
+            funcionario.IdpessoaNavigation.Telefone = dto.Pessoa.Telefone.Value;
 
-            // Recebe a lista de endereços enviada
-            var enderecosDto = dto.Pessoa.Enderecos ?? new List<EnderecoDTO>();
+      // Recebe a lista de endereços enviada
+      var enderecosDto = dto.Pessoa.Enderecos ?? new List<EnderecoDTO>();
 
             // Identifica os endereços que foram enviados com ID
             var idRecebidos = enderecosDto
