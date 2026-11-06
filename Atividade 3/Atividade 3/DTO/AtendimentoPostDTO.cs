@@ -1,13 +1,15 @@
-﻿namespace Atividade_3.DTO
+namespace Atividade_3.DTO
 {
-    public class AtendimentoPostDTO
-    {
-        public int IdPessoa { get; set; }
+  public class AtendimentoPostDTO
+  {
+    public int IdPessoa { get; set; }
 
-        public DateOnly DataAtendimento { get; set; }
+    public int IdFuncionario { get; set; }
 
-        public string StatusAtendimento { get; set; }
+    public DateOnly DataAtendimento { get; set; }
 
-        public List<AtendimentoItemPostDTO> Itens { get; set; } = new();
-    }
+    public string StatusAtendimento { get; set; }
+
+    public List<AtendimentoItemPostDTO> Itens { get; set; } = new();
+  }
 }
