@@ -104,3 +104,7 @@ tbody tr:nth-child(even) {
 tbody tr:hover {
   background: #f0ece6;
 }
+
+textarea {
+  resize: none;
+}
