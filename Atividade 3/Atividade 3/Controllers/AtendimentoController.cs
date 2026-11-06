@@ -160,23 +160,20 @@ namespace Atividade_3.Controllers
                 return BadRequest(new { mensagem = "Pessoa não encontrada." });
             }
 
-            // Busca um funcionário ativo
-            var funcionario = await _context.Funcionarios
-                .FirstOrDefaultAsync(f => f.IdpessoaNavigation.AtivoPessoa == "A");
+           // Busca o funcionário escolhido pelo cliente
+           var funcionario = await _context.Funcionarios.FirstOrDefaultAsync(f => f.Idpessoa == dto.IdFuncionario &&f.IdpessoaNavigation.AtivoPessoa == "A");
 
-            if (funcionario == null)
-            {
-                return BadRequest(new { mensagem = "Nenhum funcionário ativo encontrado." });
-            }
-
-            var atendimento = new Atendimento
-            {
+          if (funcionario == null){
+           return BadRequest(new { mensagem = "Funcionário não encontrado ou inativo." });
+           }
+           var atendimento = new Atendimento
+              {
                 Idpessoa = dto.IdPessoa,
                 DataAtedimento = DateOnly.FromDateTime(DateTime.Today),
                 StatusAtedimento = dto.StatusAtendimento,
 
                 Atendimentoitems = new List<Atendimentoitem>()
-            };
+              };
 
             foreach (var itemDto in dto.Itens)
             {
