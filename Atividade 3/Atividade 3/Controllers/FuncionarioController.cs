@@ -36,9 +36,10 @@ namespace Atividade_3.Controllers
                         Sexo = pe.IdpessoaNavigation.Sexo,
                         DataNascimento = pe.IdpessoaNavigation.DataNascimento,
                         Telefone = pe.IdpessoaNavigation.Telefone,
+                        AtivoPessoa = pe.IdpessoaNavigation.AtivoPessoa,
 
-                        // Converte os endereços para DTO
-                        Enderecos = pe.IdpessoaNavigation.Enderecos.Select(e => new EnderecoDTO
+                      // Converte os endereços para DTO
+                      Enderecos = pe.IdpessoaNavigation.Enderecos.Select(e => new EnderecoDTO
                         {
                             IdPessoa = e.Idpessoa,
                             IdEndereco = e.Idendereco,
