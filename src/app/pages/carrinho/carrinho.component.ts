@@ -23,11 +23,13 @@ export class CarrinhoComponent implements OnInit {
   ngOnInit(): void {
   this.carrinho = JSON.parse(sessionStorage.getItem('carrinho') || '[]');
 
-  this.funcionarioService.listar().subscribe({
+    this.funcionarioService.listar().subscribe({
     next: (dados) => {
       this.funcionarios = dados.filter(
         f => f.pessoa?.ativoPessoa === 'A'
       );
+
+      console.log('Funcionários ativos:', this.funcionarios);
     },
     error: (erro) => {
       console.log(erro);
@@ -93,7 +95,7 @@ export class CarrinhoComponent implements OnInit {
     this.pedidoService.identificar(cpf, email).subscribe({
       next: (pessoa) => {
         const atendimento = {
-          idFuncionario: this.idFuncionario,
+          idFuncionario: this.idFuncionario, 
           idPessoa: pessoa.idPessoa,
           statusAtendimento: 'A',
           itens: this.carrinho.map(item => ({
