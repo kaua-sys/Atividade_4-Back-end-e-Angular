@@ -1,4 +1,4 @@
-
+import { FuncionarioService } from '../../services/funcionario.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,12 +15,26 @@ import { PedidoService } from '../../services/pedido.service';
 export class CarrinhoComponent implements OnInit {
 
   carrinho: any[] = [];
+  funcionarios: any[] = [];
+  idFuncionario: number | null = null;
 
-  constructor(private pedidoService: PedidoService) {}
+  constructor(private pedidoService: PedidoService, private funcionarioService: FuncionarioService) {}
 
   ngOnInit(): void {
-    this.carrinho = JSON.parse(sessionStorage.getItem('carrinho') || '[]');
-  }
+  this.carrinho = JSON.parse(sessionStorage.getItem('carrinho') || '[]');
+
+  this.funcionarioService.listar().subscribe({
+    next: (dados) => {
+      this.funcionarios = dados.filter(
+        f => f.pessoa?.ativoPessoa === 'A'
+      );
+    },
+    error: (erro) => {
+      console.log(erro);
+      alert('Erro ao carregar os profissionais.');
+    }
+  });
+}
 
   salvar(): void {
     sessionStorage.setItem('carrinho', JSON.stringify(this.carrinho));
@@ -58,6 +72,11 @@ export class CarrinhoComponent implements OnInit {
   }
 
   confirmar(): void {
+    if (this.idFuncionario === null) {
+  alert('Selecione um profissional.');
+  return;
+}
+
     if (this.carrinho.length === 0) {
       alert('Carrinho vazio.');
       return;
@@ -74,6 +93,7 @@ export class CarrinhoComponent implements OnInit {
     this.pedidoService.identificar(cpf, email).subscribe({
       next: (pessoa) => {
         const atendimento = {
+          idFuncionario: this.idFuncionario,
           idPessoa: pessoa.idPessoa,
           statusAtendimento: 'A',
           itens: this.carrinho.map(item => ({
