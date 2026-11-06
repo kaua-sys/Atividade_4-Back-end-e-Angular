@@ -63,21 +63,40 @@ export class CarrinhoComponent implements OnInit {
       return;
     }
 
-    const atendimento = {
-      idPessoa: 1,
-      statusAtendimento: 'A',
-      itens: this.carrinho.map(item => ({
-        idItem: item.iditem,
-        quantidade: item.quantidade
-      }))
-    };
+    const cpf = Number(prompt('Digite seu CPF:'));
+    const email = prompt('Digite seu e-mail:');
 
-    this.pedidoService.criar(atendimento).subscribe({
-      next: () => {
-        alert('Pedido registrado com sucesso!');
-        this.limpar();
+    if (!cpf || !email) {
+      alert('Informe seu CPF e e-mail.');
+      return;
+    }
+
+    this.pedidoService.identificar(cpf, email).subscribe({
+      next: (pessoa) => {
+        const atendimento = {
+          idPessoa: pessoa.idPessoa,
+          statusAtendimento: 'A',
+          itens: this.carrinho.map(item => ({
+            idItem: item.iditem,
+            quantidade: item.quantidade
+          }))
+        };
+
+        this.pedidoService.criar(atendimento).subscribe({
+          next: () => {
+            alert('Pedido registrado com sucesso!');
+            this.limpar();
+          },
+          error: (erro) => {
+            console.log(erro);
+            alert(erro.error?.mensagem || 'Erro ao registrar o pedido.');
+          }
+        });
       },
-      error: () => alert('Erro ao registrar o pedido.')
+      error: (erro) => {
+        console.log(erro);
+        alert(erro.error?.mensagem || 'Cliente não encontrado.');
+      }
     });
   }
 }
