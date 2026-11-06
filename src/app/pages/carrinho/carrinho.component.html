@@ -8,6 +8,26 @@
 
 <div *ngIf="carrinho.length > 0">
 
+  <div class="selecionar-profissional">
+  <label for="profissional">Escolha o profissional:</label>
+
+  <select
+    id="profissional"
+    name="profissional"
+    [(ngModel)]="idFuncionario"
+    required
+  >
+    <option [ngValue]="null">Selecione um profissional</option>
+
+    <option
+      *ngFor="let funcionario of funcionarios"
+      [ngValue]="funcionario.idPessoa"
+    >
+      {{ funcionario.pessoa.nome }} - {{ funcionario.cargo }}
+    </option>
+  </select>
+</div>
+
   <table>
     <thead>
       <tr>
