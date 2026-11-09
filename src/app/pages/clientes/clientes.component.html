@@ -45,13 +45,66 @@
           [(ngModel)]="cliente.telefone" required>
       </div>
 
+      <!-- Endereços -->
+<div class="enderecos">
+  <h3>Endereços do cliente</h3>
+
+  <div class="endereco" *ngFor="let endereco of cliente.enderecos; let i = index">
+
+    <h4>Endereço {{ i + 1 }}</h4>
+
+    <div class="campo">
+      <label>CEP:</label>
+      <input
+        type="text"
+        [name]="'cep' + i"
+        [(ngModel)]="endereco.cep"
+        maxlength="8"
+        placeholder="Somente números"
+        required>
+    </div>
+
+    <div class="campo">
+      <label>Número:</label>
+      <input
+        type="text"
+        [name]="'numero' + i"
+        [(ngModel)]="endereco.numero"
+        required>
+    </div>
+
+    <div class="campo">
+      <label>Complemento:</label>
+      <input
+        type="text"
+        [name]="'complemento' + i"
+        [(ngModel)]="endereco.complemento">
+    </div>
+
+    <button
+      type="button"
+      class="btn-excluir"
+      (click)="removerEndereco(i)">
+      Remover endereço
+    </button>
+
+  </div>
+
+  <button
+    type="button"
+    class="btn-adicionar"
+    (click)="adicionarEndereco()">
+    + Adicionar endereço
+  </button>
+</div>
+
       <div class="botoes">
         <button type="submit" class="btn-salvar">
           {{ cliente.idPessoa ? 'Salvar alterações' : 'Cadastrar cliente' }}
         </button>
 
         <button type="button" class="btn-cancelar"
-          *ngIf="cliente.idPessoa" (click)="cliente = {}">
+          *ngIf="cliente.idPessoa" (click)="limparFormulario()">
           Cancelar
         </button>
       </div>
