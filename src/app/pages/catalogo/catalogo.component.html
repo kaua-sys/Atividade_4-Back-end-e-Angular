@@ -3,6 +3,26 @@
 <div class="pesquisa">
     <input type="text"placeholder="Pesquisar produto ou serviço..." [(ngModel)]="pesquisa"(ngModelChange)="filtrarProdutos()"></div>
 
+    <div class="filtros">
+    <button 
+        (click)="tipoSelecionado = 'T'; filtrarProdutos()"
+        [class.selecionado]="tipoSelecionado === 'T'">
+        Todos
+    </button>
+
+    <button 
+        (click)="tipoSelecionado = 'P'; filtrarProdutos()"
+        [class.selecionado]="tipoSelecionado === 'P'">
+        Produtos
+    </button>
+
+    <button 
+        (click)="tipoSelecionado = 'S'; filtrarProdutos()"
+        [class.selecionado]="tipoSelecionado === 'S'">
+        Serviços
+    </button>
+</div>
+
 <p *ngIf="mensagemErro"> {{ mensagemErro }}</p>
 
 <div class="catalogo">

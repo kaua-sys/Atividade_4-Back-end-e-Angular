@@ -103,3 +103,28 @@ h1 {
 .produto button:active {
   transform: scale(0.98);
 }
+.filtros {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.filtros button {
+    padding: 10px 20px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filtros button:hover {
+    background-color: #ddd;
+}
+
+.filtros button.selecionado {
+    background-color: #333;
+    color: white;
+}
