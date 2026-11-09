@@ -1,3 +1,4 @@
+
 .pagina-pedidos {
   max-width: 1100px;
   margin: 30px auto;
@@ -5,16 +6,70 @@
   color: #62594f;
 }
 
-h1 {
+.pagina-pedidos h1 {
   color: #62594f;
   text-align: center;
   margin-bottom: 30px;
   font-size: 28px;
 }
 
-table {
+/* Filtro */
+.pagina-pedidos > select {
+  padding: 10px;
+  border: 1px solid #d8d0c5;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #62594f;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 20px;
+}
+
+select:focus {
+  border-color: #b9a990;
+  box-shadow: 0 0 0 3px rgba(185, 169, 144, 0.15);
+}
+
+/* Cartão do pedido */
+.pedido {
+  background: #ffffff;
+  border: 1px solid #e9e5df;
+  border-radius: 9px;
+  padding: 22px;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.pedido h2 {
+  color: #62594f;
+  font-size: 21px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e9e5df;
+}
+
+.pedido p {
+  text-align: left;
+  color: #81776c;
+  margin: 10px 0;
+}
+
+.pedido p strong {
+  color: #62594f;
+}
+
+/* Título dos itens */
+.pedido h3 {
+  color: #62594f;
+  font-size: 17px;
+  margin-top: 25px;
+  margin-bottom: 12px;
+}
+
+/* Tabela */
+.pedido table {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 15px;
   border-collapse: collapse;
   background: #ffffff;
   border-radius: 9px;
@@ -22,28 +77,50 @@ table {
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
 }
 
-th,
-td {
+.pedido th,
+.pedido td {
   padding: 14px;
   text-align: center;
   border-bottom: 1px solid #e9e5df;
 }
 
-th {
+.pedido th {
   background: #e9e4dc;
   color: #62594f;
   font-weight: 600;
 }
 
-tbody tr:nth-child(even) {
+.pedido tbody tr:nth-child(even) {
   background: #faf9f7;
 }
 
-tbody tr:hover {
+.pedido tbody tr:hover {
   background: #f0ece6;
 }
 
-select {
+/* Total */
+.pedido > h3 {
+  text-align: right;
+  color: #62594f;
+  margin-top: 20px;
+}
+
+/* Alterar situação */
+.alterar-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #e9e5df;
+}
+
+.alterar-status label {
+  color: #62594f;
+  font-weight: 600;
+}
+
+.alterar-status select {
   padding: 10px;
   border: 1px solid #d8d0c5;
   border-radius: 7px;
@@ -53,13 +130,33 @@ select {
   outline: none;
 }
 
-select:focus {
-  border-color: #b9a990;
-  box-shadow: 0 0 0 3px rgba(185, 169, 144, 0.15);
-}
-
-p {
+/* Mensagem */
+.pagina-pedidos > p {
   text-align: center;
   color: #81776c;
   margin-top: 25px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .pagina-pedidos {
+    padding: 12px;
+  }
+
+  .pedido {
+    padding: 15px;
+    overflow-x: auto;
+  }
+
+  .pedido table {
+    min-width: 650px;
+  }
+
+  .alterar-status {
+    flex-wrap: wrap;
+  }
+
+  .pagina-pedidos > select {
+    width: 100%;
+  }
 }

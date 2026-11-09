@@ -1,62 +1,80 @@
+
 <div class="pagina-pedidos">
 
   <h1>Gerenciar Pedidos</h1>
 
   <select [(ngModel)]="filtroStatus" (change)="filtrarPedidos()">
-  <option value="">Todos os pedidos</option>
-  <option value="A">Aberto</option>
-  <option value="P">Em processamento</option>
-  <option value="C">Concluído</option>
-  <option value="X">Cancelado</option>
-</select>
+    <option value="">Todos os pedidos</option>
+    <option value="A">Aberto</option>
+    <option value="P">Em processamento</option>
+    <option value="C">Concluído</option>
+    <option value="X">Cancelado</option>
+  </select>
 
   <p *ngIf="pedidos.length === 0">
     Nenhum pedido cadastrado.
   </p>
 
-  <table *ngIf="pedidos.length > 0">
+  <div class="pedido" *ngFor="let p of pedidos">
 
-    <thead>
-      <tr>
-        <th>Pedido</th>
-        <th>Cliente</th>
-        <th>Data</th>
-        <th>Total</th>
-        <th>Situação</th>
-        <th>Alterar situação</th>
-      </tr>
-    </thead>
+    <h2>Pedido #{{ p.idAtendimento }}</h2>
 
-    <tbody>
-      <tr *ngFor="let p of pedidos">
+    <p><strong>Cliente:</strong> {{ p.nomePessoa }}</p>
+    <p><strong>Data:</strong> {{ p.dataAtendimento | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Situação:</strong> {{ nomeStatus(p.statusAtendimento) }}</p>
 
-        <td>{{ p.idAtendimento }}</td>
+    <h3>Itens do pedido</h3>
 
-        <td>{{ p.nomePessoa }}</td>
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Funcionário</th>
+          <th>Quantidade</th>
+          <th>Valor unitário</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
 
-        <td>{{ p.dataAtendimento | date:'dd/MM/yyyy' }}</td>
+      <tbody>
+        <tr *ngFor="let item of p.itens">
 
-        <td>{{ calcularTotal(p) | currency:'BRL' }}</td>
+          <td>{{ item.item }}</td>
+          <td>{{ item.nomeFuncionario }}</td>
+          <td>{{ item.quantidade }}</td>
 
-        <td>{{ nomeStatus(p.statusAtendimento) }}</td>
+          <td>
+            {{ item.valorUnitario | currency:'BRL' }}
+          </td>
 
-        <td>
-          <select
-            #status
-            [value]="p.statusAtendimento"
-            (change)="alterarStatus(p.idAtendimento, status.value)">
+          <td>
+            {{ item.valorUnitario * item.quantidade | currency:'BRL' }}
+          </td>
 
-            <option value="A">Aberto</option>
-            <option value="P">Em processamento</option>
-            <option value="C">Concluído</option>
-            <option value="X">Cancelado</option>
+        </tr>
+      </tbody>
+    </table>
 
-          </select>
-        </td>
+    <h3>
+      Total: {{ calcularTotal(p) | currency:'BRL' }}
+    </h3>
 
-      </tr>
-    </tbody>
+    <div class="alterar-status">
+      <label>Alterar situação:</label>
 
-  </table>
+      <select
+        #status
+        [value]="p.statusAtendimento"
+        (change)="alterarStatus(p.idAtendimento, status.value)">
+
+        <option value="A">Aberto</option>
+        <option value="P">Em processamento</option>
+        <option value="C">Concluído</option>
+        <option value="X">Cancelado</option>
+
+      </select>
+    </div>
+
+  </div>
 
 </div>
